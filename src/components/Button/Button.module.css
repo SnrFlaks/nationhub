@@ -1,0 +1,40 @@
+.btn {
+  height: 40px;
+  width: 40px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.defaultBtn {
+  width: fit-content;
+  min-width: 40px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  line-height: 1;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.defaultBtn:hover {
+  border-color: #7fc13c;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.icon {
+  color: #f6f6f6;
+}
+
+@media (prefers-color-scheme: light) {
+  .icon {
+    color: #1a1a1a;
+  }
+}

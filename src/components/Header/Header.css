@@ -31,12 +31,10 @@
 .logo-title {
   font-size: 2em;
 }
-
 .logo-title::before {
   content: "Nation";
   color: #f6f6f6;
 }
-
 .logo-title::after {
   content: "Hub";
   color: #7fc13c;
@@ -46,6 +44,7 @@
   width: 100%;
   border-radius: 8px;
   border: 1px solid transparent;
+  border-color: #f6f6f6;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -53,7 +52,6 @@
   box-sizing: border-box;
   transition: border-color 0.25s;
 }
-
 .search-input:hover {
   border-color: #7fc13c;
 }

@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "../Button/Button";
 import "./Header.css";
 
 const Header = () => {
@@ -9,11 +9,11 @@ const Header = () => {
       </div>
       <div id="center" className="header">
         <input type="text" className="search-input" placeholder="Search..." />
-        <button>Filter</button>
+        <Button icon="filter_alt" />
       </div>
       <div id="end" className="header">
-        <button>Theme</button>
-        <button>Settings</button>
+        <Button icon="light_mode" />
+        <Button icon="settings" />
       </div>
     </header>
   );

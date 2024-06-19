@@ -1,0 +1,15 @@
+.MuiTouchRipple-root {
+  color: rgba(246, 246, 246, 0.54);
+}
+.MuiButtonBase-root:hover {
+  background-color: rgba(246, 246, 246, 0.04);
+}
+
+@media (prefers-color-scheme: light) {
+  .MuiTouchRipple-root {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  .MuiButtonBase-root:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
