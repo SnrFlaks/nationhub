@@ -1,0 +1,59 @@
+.header-container {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+  color: white;
+  height: 56px;
+}
+
+#start.header,
+#center.header,
+#end.header {
+  display: flex;
+  align-items: center;
+}
+
+#center.header {
+  flex: 0 1 512px;
+  padding: 0 16px;
+  justify-content: center;
+}
+
+#end.header {
+  justify-content: flex-end;
+}
+
+.logo-title {
+  font-size: 2em;
+}
+
+.logo-title::before {
+  content: "Nation";
+  color: #f6f6f6;
+}
+
+.logo-title::after {
+  content: "Hub";
+  color: #7fc13c;
+}
+
+.search-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #1a1a1a;
+  box-sizing: border-box;
+  transition: border-color 0.25s;
+}
+
+.search-input:hover {
+  border-color: #7fc13c;
+}
