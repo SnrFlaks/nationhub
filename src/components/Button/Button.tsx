@@ -10,15 +10,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({ children, icon, ...props }) => {
   const btnClass = icon ? styles.iconBtn : styles.defaultBtn;
-  return (
+  return icon ? (
+    <StyledEngineProvider injectFirst>
+      <IconButton>
+        <Icon className={styles.icon}>{icon}</Icon>
+      </IconButton>
+    </StyledEngineProvider>
+  ) : (
     <button className={`${styles.btn} ${btnClass}`} {...props}>
-      {icon && (
-        <StyledEngineProvider injectFirst>
-          <IconButton>
-            <Icon className={styles.icon}>{icon}</Icon>
-          </IconButton>
-        </StyledEngineProvider>
-      )}
       {children}
     </button>
   );
