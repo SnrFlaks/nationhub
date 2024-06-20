@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({ children, icon, ...props }) => {
   const btnClass = icon ? styles.iconBtn : styles.defaultBtn;
   return icon ? (
     <StyledEngineProvider injectFirst>
-      <IconButton>
+      <IconButton onClick={props.onClick}>
         <Icon className={styles.icon}>{icon}</Icon>
       </IconButton>
     </StyledEngineProvider>

@@ -15,12 +15,12 @@
   font-weight: 500;
   font-family: inherit;
   line-height: 1;
-  background-color: #1a1a1a;
+  background: var(--bkg-color);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 .defaultBtn:hover {
-  border-color: #7fc13c;
+  border-color: var(--green);
 }
 
 .iconBtn {
@@ -30,11 +30,5 @@
 }
 
 .icon {
-  color: #f6f6f6;
-}
-
-@media (prefers-color-scheme: light) {
-  .icon {
-    color: #1a1a1a;
-  }
+  color: var(--text-primary);
 }

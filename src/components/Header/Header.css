@@ -7,7 +7,7 @@
   justify-content: space-between;
   padding: 0 16px;
   box-sizing: border-box;
-  color: white;
+  color: var(--text-primary);
   height: 56px;
 }
 
@@ -33,25 +33,31 @@
 }
 .logo-title::before {
   content: "Nation";
-  color: #f6f6f6;
+  color: var(--text-primary);
 }
 .logo-title::after {
   content: "Hub";
-  color: #7fc13c;
+  color: var(--green);
 }
 
 .search-input {
   width: 100%;
   border-radius: 8px;
   border: 1px solid transparent;
-  border-color: #f6f6f6;
+  border-color: var(--border-primary);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  background-color: #1a1a1a;
+  background-color: var(--bkg-secondary);
   box-sizing: border-box;
   transition: border-color 0.25s;
 }
 .search-input:hover {
-  border-color: #7fc13c;
+  border-color: var(--green);
+}
+.search-input:focus {
+  border: none;
+  outline-color: var(--border-primary);
+  outline-style: solid;
+  outline-width: 2px;
 }
