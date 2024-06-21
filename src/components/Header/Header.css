@@ -7,7 +7,6 @@
   justify-content: space-between;
   padding: 0 16px;
   box-sizing: border-box;
-  color: var(--text-primary);
   height: 56px;
 }
 
@@ -20,7 +19,7 @@
 
 #center.header {
   flex: 0 1 512px;
-  padding: 0 16px;
+  padding: 0 0 0 16px;
   justify-content: center;
 }
 
@@ -48,7 +47,8 @@
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  background-color: var(--bkg-secondary);
+  color: var(--text-primary);
+  background: var(--bkg-secondary);
   box-sizing: border-box;
   transition: border-color 0.25s;
 }
@@ -60,4 +60,20 @@
   outline-color: var(--border-primary);
   outline-style: solid;
   outline-width: 2px;
+}
+
+.search-btn {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  #center.header {
+    justify-content: flex-end;
+  }
+  .search-input {
+    display: none;
+  }
+  .search-btn {
+    display: flex;
+  }
 }

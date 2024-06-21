@@ -23,12 +23,6 @@
   border-color: var(--green);
 }
 
-.iconBtn {
-  background: none;
-  border: none;
-  padding: 0;
-}
-
 .icon {
   color: var(--text-primary);
 }
