@@ -50,10 +50,10 @@
   color: var(--text-primary);
   background: var(--bkg-secondary);
   box-sizing: border-box;
-  transition: border-color 0.25s;
 }
 .search-input:hover {
   border-color: var(--green);
+  transition: border-color 0.25s;
 }
 .search-input:focus {
   border: none;
