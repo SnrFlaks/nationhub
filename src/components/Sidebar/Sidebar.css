@@ -41,27 +41,32 @@
 .content-item {
   display: flex;
   border-radius: 5px;
-  padding-left: 1px;
   margin-bottom: 4px;
+  cursor: pointer;
   align-items: center;
+  user-select: none;
+}
+.content-item:hover {
   background: var(--bkg-tertiary);
+}
+.content-item.selected {
+  font-weight: 500;
+  background: var(--bkg-tertiary);
+}
+.content-item.selected:hover {
+  background: var(--bkg-quaternary);
 }
 
 .country-flag {
-  border-radius: 4px;
-  max-width: 32px;
-  max-height: 1.25em;
-}
-
-.country-flag.picture {
-  height: 1.25em;
-}
-
-.country-flag.picture.img {
-  height: 1.25em;
+  display: flex;
+  width: 32px;
+  padding: 2px;
+  border-radius: 5px;
+  align-items: center;
 }
 
 .country-name {
   font-size: 1em;
-  padding-left: 10px;
+  color: var(--text-primary);
+  padding-left: 8px;
 }

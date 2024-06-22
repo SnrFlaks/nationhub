@@ -1,5 +1,5 @@
 import useTheme from "../../hooks/useTheme";
-import Button from "../Button/Button";
+import Button from "../UI/Button/Button";
 import "./Header.css";
 
 interface HeaderProps {

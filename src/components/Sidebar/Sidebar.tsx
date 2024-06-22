@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Sidebar.css";
-import Button from "../Button/Button";
+import Button from "../UI/Button/Button";
 
 interface Country {
   name: {
@@ -17,6 +17,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,21 +50,19 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
           {countries
             .sort((a, b) => a.name.common.localeCompare(b.name.common))
             .map(({ cca2, name }) => (
-              <tr key={cca2} className="content-item">
+              <tr
+                key={cca2}
+                className={`content-item ${
+                  cca2 === selectedCountry ? "selected" : ""
+                }`}
+                onClick={() => setSelectedCountry(cca2)}
+              >
                 <td className="country-flag">
-                  <picture className="country-flag picture">
-                    <source
-                      type="image/png"
-                      srcSet={`https://flagcdn.com/h80/${cca2.toLowerCase()}.png,
-                               https://flagcdn.com/h160/${cca2.toLowerCase()}.png 2x,
-                               https://flagcdn.com/h240/${cca2.toLowerCase()}.png 3x`}
-                    />
-                    <img
-                      src={`https://flagcdn.com/h40/${cca2.toLowerCase()}.png`}
-                      alt={`Flag of ${name.common}`}
-                      className="country-flag picture img"
-                    />
-                  </picture>
+                  <img
+                    src={`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${cca2}.svg`}
+                    alt={`Flag of ${name.common}`}
+                    className="country-flag img"
+                  />
                 </td>
                 <td className="country-name">{name.common}</td>
               </tr>
