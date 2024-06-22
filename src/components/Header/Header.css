@@ -1,8 +1,9 @@
 .header-container {
   display: flex;
   position: fixed;
+  /* background: var(--bkg-primary); */
   width: 100%;
-  z-index: 1000;
+  z-index: 0;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
@@ -19,7 +20,7 @@
 
 #center.header {
   flex: 0 1 512px;
-  padding: 0 0 0 16px;
+  padding-left: 16px;
   justify-content: center;
 }
 
@@ -28,7 +29,8 @@
 }
 
 .logo-title {
-  font-size: 2em;
+  font-size: 1.7em;
+  padding-left: 8px;
 }
 .logo-title::before {
   content: "Nation";
@@ -44,7 +46,7 @@
   border-radius: 8px;
   border: 1px solid transparent;
   border-color: var(--border-primary);
-  padding: 0.6em 1.2em;
+  padding: 0.6em;
   font-size: 1em;
   font-weight: 500;
   color: var(--text-primary);
@@ -66,7 +68,7 @@
   display: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 512px) {
   #center.header {
     justify-content: flex-end;
   }

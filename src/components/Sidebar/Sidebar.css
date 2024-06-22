@@ -1,0 +1,67 @@
+.sidebar-container {
+  padding-left: 16px;
+  background: var(--bkg-secondary);
+  width: 256px;
+  position: fixed;
+  z-index: 1;
+  text-align: left;
+  transition: transform 0.2s ease-in-out;
+  transform: translateX(-100%);
+}
+.sidebar-container.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+
+.sidebar-content {
+  display: block;
+  height: calc(100vh - 56px);
+  overflow-x: hidden;
+  padding-right: 8px;
+}
+.sidebar-content::-webkit-scrollbar {
+  width: 8px;
+}
+.sidebar-content::-webkit-scrollbar-track {
+  background: none;
+}
+.sidebar-content::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: var(--scroll-thumb);
+}
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}
+
+.content-item {
+  display: flex;
+  border-radius: 5px;
+  padding-left: 1px;
+  margin-bottom: 4px;
+  align-items: center;
+  background: var(--bkg-tertiary);
+}
+
+.country-flag {
+  border-radius: 4px;
+  max-width: 32px;
+  max-height: 1.25em;
+}
+
+.country-flag.picture {
+  height: 1.25em;
+}
+
+.country-flag.picture.img {
+  height: 1.25em;
+}
+
+.country-name {
+  font-size: 1em;
+  padding-left: 10px;
+}
