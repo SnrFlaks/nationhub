@@ -7,12 +7,19 @@ const useTheme = () => {
       if (storedTheme) {
         return storedTheme as "light" | "dark";
       }
-      return window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
     })()
   );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const listener = (e: MediaQueryListEvent) =>
+      setTheme(e.matches ? "dark" : "light");
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
+  }, []);
 
   useEffect(() => {
     document.documentElement.className = theme;
