@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Sidebar.css";
 import Button from "../UI/Button/Button";
-
-interface Country {
-  name: {
-    common: string;
-  };
-  cca2: string;
-  independent: boolean;
-}
+import { Country, fetchCountries } from "../../api/Countries";
 
 interface SidebarProps {
-  isOpen: boolean;
   toggleSidebar: () => void;
+  isOpen: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
@@ -20,23 +13,12 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
-        if (!response.ok) {
-          throw new Error(`HTTP error status: ${response.status}`);
-        }
-        const data = await response.json();
-        const independentCountries = data.filter(
-          (country: Country) => country.independent
-        );
-        setCountries(independentCountries);
-      } catch (error) {
-        console.error("Error fetching countries:", error);
-      }
+    const loadCountries = async () => {
+      const fetchedCountries = await fetchCountries({ independent: true });
+      setCountries(fetchedCountries);
     };
 
-    fetchData();
+    loadCountries();
   }, []);
 
   return (
@@ -49,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
         <tbody>
           {countries
             .sort((a, b) => a.name.common.localeCompare(b.name.common))
-            .map(({ cca2, name }) => (
+            .map(({ cca2, name, flagUrl }) => (
               <tr
                 key={cca2}
                 className={`content-item ${
@@ -59,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
               >
                 <td className="country-flag">
                   <img
-                    src={`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${cca2}.svg`}
+                    src={flagUrl}
                     alt={`Flag of ${name.common}`}
                     className="country-flag img"
                   />

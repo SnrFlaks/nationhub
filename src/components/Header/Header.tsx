@@ -5,12 +5,10 @@ import "./Header.css";
 
 interface HeaderProps {
   toggleSidebar: () => void;
-  toggleSearch: () => void;
-  isClosed: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
-  const { isDarkMode, toggleTheme } = useTheme();
+  const [isDarkMode, toggleTheme] = useTheme();
   const [isSearchMode, setSearchMode] = useState(false);
 
   useEffect(() => {
@@ -37,7 +35,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
       </div>
       <div className="center">
         <Button icon="arrow_back" className="back-btn" onClick={toggleSearch} />
-        <input type="text" className="search-input" placeholder="Search..." />
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search..."
+          ref={(input) => isSearchMode && input && input.focus()}
+        />
         <Button icon="search" className="search-btn" onClick={toggleSearch} />
         <Button icon="filter_alt" />
       </div>
