@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import useTheme from "@hooks/useTheme";
 import Button from "@components/UI/Button/Button";
-import "./Header.css";
+import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
+import styles from "./Header.module.css";
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -26,28 +27,27 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   };
 
   return (
-    <header className={`header-container${isSearchMode ? " search-mode" : ""}`}>
-      <div className="start">
+    <header
+      className={`${styles.headerContainer}${
+        isSearchMode ? ` ${styles.searchMode}` : ""
+      }`}
+    >
+      <div className={styles.start}>
         <Button icon="menu" onClick={toggleSidebar} />
-        <div className="logo-container">
-          <h1 className="logo-title" />
-        </div>
+        <LogoTitle />
       </div>
-      <div className="center">
-        <Button icon="arrow_back" className="back-btn" onClick={toggleSearch} />
+      <div className={styles.center}>
+        <Button icon="arrow_back" className={styles.backBtn} onClick={toggleSearch} />
         <input
           type="text"
-          className="search-input"
+          className={styles.searchInput}
           placeholder="Search..."
           ref={(input) => isSearchMode && input && input.focus()}
         />
-        <Button icon="search" className="search-btn" onClick={toggleSearch} />
+        <Button icon="search" className={styles.searchBtn} onClick={toggleSearch} />
       </div>
-      <div className="end">
-        <Button
-          icon={isDarkMode ? "dark_mode" : "light_mode"}
-          onClick={toggleTheme}
-        />
+      <div className={styles.end}>
+        <Button icon={isDarkMode ? "dark_mode" : "light_mode"} onClick={toggleTheme} />
         <Button icon="settings" />
       </div>
     </header>

@@ -1,4 +1,4 @@
-.header-container {
+.headerContainer {
   display: flex;
   position: fixed;
   width: 100%;
@@ -27,20 +27,7 @@
   justify-content: flex-end;
 }
 
-.logo-title {
-  font-size: 1.7em;
-  padding-left: 8px;
-}
-.logo-title::before {
-  content: "Nation";
-  color: var(--text-primary);
-}
-.logo-title::after {
-  content: "Hub";
-  color: var(--green);
-}
-
-.search-input {
+.searchInput {
   width: 100%;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -52,19 +39,19 @@
   background: var(--bkg-secondary);
   box-sizing: border-box;
 }
-.search-input:hover {
+.searchInput:hover {
   border-color: var(--green);
   transition: border-color 0.25s;
 }
-.search-input:focus {
+.searchInput:focus {
   border: none;
   outline-color: var(--border-primary);
   outline-style: solid;
   outline-width: 2px;
 }
 
-.back-btn,
-.search-btn {
+.backBtn,
+.searchBtn {
   display: none;
 }
 
@@ -74,15 +61,15 @@
     justify-content: flex-end;
   }
 
-  .search-input {
+  .searchInput {
     display: none;
   }
 
-  .search-btn {
+  .searchBtn {
     display: flex;
   }
 
-  .header-container.search-mode {
+  .headerContainer.searchMode {
     .start,
     .end {
       display: none;
@@ -92,12 +79,12 @@
       flex: 0 1 640px;
     }
 
-    .back-btn,
-    .search-input {
+    .backBtn,
+    .searchInput {
       display: flex;
     }
 
-    .search-btn {
+    .searchBtn {
       display: none;
     }
   }

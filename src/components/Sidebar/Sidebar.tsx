@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./Sidebar.css";
 import Button from "@components/UI/Button/Button";
+import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
 import {
   FormControl,
   MenuItem,
@@ -9,6 +9,7 @@ import {
   StyledEngineProvider,
 } from "@mui/material";
 import { Country, countryService } from "@api/CountryService";
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
   toggleSidebar: () => void;
@@ -43,13 +44,13 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
   };
 
   return (
-    <div className={`sidebar-container${isOpen ? " open" : ""}`}>
-      <div className="sidebar-header">
+    <div className={`${styles.sidebarContainer}${isOpen ? ` ${styles.open}` : ""}`}>
+      <div className={styles.sidebarHeader}>
         <Button icon="menu" onClick={toggleSidebar} />
-        <h1 className="logo-title" />
+        <LogoTitle />
       </div>
-      <div className="sidebar-settings">
-        <div className="sort-dropdown">
+      <div className={styles.sidebarSettings}>
+        <div className={styles.sortDropdown}>
           <Button icon="swap_vert" onClick={toggleSortOrder} />
           <StyledEngineProvider injectFirst>
             <FormControl>
@@ -61,27 +62,27 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
             </FormControl>
           </StyledEngineProvider>
         </div>
-        <Button icon="filter_alt" className="filter-btn" />
+        <Button icon="filter_alt" className={styles.filterBtn} />
       </div>
-      <div className="sidebar-content">
+      <div className={styles.sidebarContent}>
         <table>
           <tbody>
             {countries.map(({ cca2, name, flagUrl }) => (
               <tr
                 key={cca2}
-                className={`content-item ${
-                  cca2 === selectedCountry ? "selected" : ""
+                className={`${styles.contentItem}${
+                  cca2 === selectedCountry ? ` ${styles.selected}` : ""
                 }`}
                 onClick={() => setSelectedCountry(cca2)}
               >
-                <td className="country-flag">
+                <td className={styles.countryFlag}>
                   <img
                     src={flagUrl}
                     alt={`Flag of ${name.common}`}
-                    className="country-flag img"
+                    className={`${styles.countryFlag} img`}
                   />
                 </td>
-                <td className="country-name">{name.common}</td>
+                <td className={styles.countryName}>{name.common}</td>
               </tr>
             ))}
           </tbody>

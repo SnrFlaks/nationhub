@@ -1,0 +1,12 @@
+.logoTitle {
+  font-size: 1.7em;
+  padding-left: 8px;
+}
+.logoTitle::before {
+  content: "Nation";
+  color: var(--text-primary);
+}
+.logoTitle::after {
+  content: "Hub";
+  color: var(--green);
+}
