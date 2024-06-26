@@ -7,6 +7,18 @@ export interface Country {
   flagUrl: string;
   cca2: string;
   independent: boolean;
+  unMember: boolean;
+  continent: string;
+  region: string;
+  subregion: string;
+}
+
+interface FilterOptions {
+  independent?: boolean;
+  unMember?: boolean;
+  continent?: string;
+  region?: string;
+  subregion?: string;
 }
 
 class CountryService {
@@ -33,10 +45,13 @@ class CountryService {
   }
 
   async getSortedCountries(
+    countries: Country[] | undefined,
     sortBy: keyof Country,
     sortOrder: "asc" | "desc" = "asc"
   ): Promise<Country[]> {
-    const countries = await this.getAllCountries();
+    if (!countries) {
+      countries = await this.getAllCountries();
+    }
     return countries.sort((a, b) => {
       let valueA, valueB;
       if (sortBy === "name") {
@@ -55,14 +70,15 @@ class CountryService {
       } else {
         throw new Error(`Unsupported sortBy parameter or type: ${sortBy}`);
       }
-    });
+    }); 
   }
 
   async getFilteredCountries(
-    predicate: (country: Country) => boolean
+    predicate: (country: Country, options: FilterOptions) => boolean,
+    options: FilterOptions
   ): Promise<Country[]> {
     const countries = await this.getAllCountries();
-    return countries.filter(predicate);
+    return countries.filter((country) => predicate(country, options));
   }
 }
 

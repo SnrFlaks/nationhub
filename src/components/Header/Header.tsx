@@ -5,10 +5,10 @@ import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
 import styles from "./Header.module.css";
 
 interface HeaderProps {
-  toggleSidebar: () => void;
+  setSidebarActive: (active: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
   const [isDarkMode, toggleTheme] = useTheme();
   const [isSearchMode, setSearchMode] = useState(false);
 
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
       }`}
     >
       <div className={styles.start}>
-        <Button icon="menu" onClick={toggleSidebar} />
+        <Button icon="menu" onClick={() => setSidebarActive(true)} />
         <LogoTitle />
       </div>
       <div className={styles.center}>

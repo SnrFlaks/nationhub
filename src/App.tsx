@@ -5,16 +5,12 @@ import "./styles/App.css";
 import "./styles/Mui.css";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const [isSidebarActive, setIsSidebarActive] = useState(false);
 
   return (
     <>
-      <Header toggleSidebar={toggleSidebar} />
-      <Sidebar toggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
+      <Header setSidebarActive={setIsSidebarActive} />
+      <Sidebar isActive={isSidebarActive} setActive={setIsSidebarActive} />
     </>
   );
 }

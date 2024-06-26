@@ -1,0 +1,24 @@
+.modalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.modalContainer.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modalContent {
+  border-radius: 8px;
+  background: var(--bkg-secondary);
+  padding: 8px;
+}

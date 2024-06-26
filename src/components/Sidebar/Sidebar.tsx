@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "@components/UI/Button/Button";
 import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
+import Modal from "@components/UI/Modal/Modal";
 import {
   FormControl,
   MenuItem,
@@ -12,19 +13,21 @@ import { Country, countryService } from "@api/CountryService";
 import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
-  toggleSidebar: () => void;
-  isOpen: boolean;
+  isActive: boolean;
+  setActive: (active: boolean) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
   useEffect(() => {
     const loadCountries = async () => {
       const sortedCountries = await countryService.getSortedCountries(
+        undefined,
         sortOption as keyof Country | "name",
         sortOrder as "asc" | "desc"
       );
@@ -44,9 +47,9 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
   };
 
   return (
-    <div className={`${styles.sidebarContainer}${isOpen ? ` ${styles.open}` : ""}`}>
+    <div className={`${styles.sidebarContainer}${isActive ? ` ${styles.open}` : ""}`}>
       <div className={styles.sidebarHeader}>
-        <Button icon="menu" onClick={toggleSidebar} />
+        <Button icon="menu" onClick={() => setActive(false)} />
         <LogoTitle />
       </div>
       <div className={styles.sidebarSettings}>
@@ -62,7 +65,11 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
             </FormControl>
           </StyledEngineProvider>
         </div>
-        <Button icon="filter_alt" className={styles.filterBtn} />
+        <Button
+          icon="filter_alt"
+          className={styles.filterBtn}
+          onClick={() => setIsModalActive(true)}
+        />
       </div>
       <div className={styles.sidebarContent}>
         <table>
@@ -88,6 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
           </tbody>
         </table>
       </div>
+      <Modal isActive={isModalActive} setActive={setIsModalActive}></Modal>
     </div>
   );
 };
