@@ -1,0 +1,43 @@
+.MuiFormControl-root {
+  flex-grow: 1;
+}
+
+.MuiInputBase-root {
+  height: 40px;
+  border-radius: 32px;
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 40px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.MuiInputBase-input {
+  padding: 0 8px;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.MuiSvgIcon-root {
+  color: var(--text-primary);
+}
+
+.MuiPaper-root {
+  color: var(--text-primary);
+  background: var(--bkg-tertiary);
+  width: 136px;
+}
+
+.MuiButtonBase-root.MuiMenuItem-root:hover,
+.MuiButtonBase-root.MuiMenuItem-root.Mui-selected {
+  background: var(--bkg-quaternary);
+}
+
+.MuiTouchRipple-root {
+  color: color-mix(in srgb, var(--text-primary), transparent 46%);
+}
+.MuiButtonBase-root:hover {
+  background: color-mix(in srgb, var(--text-primary), transparent 96%);
+}

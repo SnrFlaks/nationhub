@@ -1,7 +1,6 @@
 import { Icon, IconButton } from "@mui/material";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import styles from "./Button.module.css";
-import "./TouchRipple.css";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;

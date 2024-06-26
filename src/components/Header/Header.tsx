@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useTheme from "../../hooks/useTheme";
-import Button from "../UI/Button/Button";
+import useTheme from "@hooks/useTheme";
+import Button from "@components/UI/Button/Button";
 import "./Header.css";
 
 interface HeaderProps {
@@ -42,7 +42,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           ref={(input) => isSearchMode && input && input.focus()}
         />
         <Button icon="search" className="search-btn" onClick={toggleSearch} />
-        <Button icon="filter_alt" />
       </div>
       <div className="end">
         <Button
