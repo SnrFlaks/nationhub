@@ -8,17 +8,9 @@ export interface Country {
   cca2: string;
   independent: boolean;
   unMember: boolean;
-  continent: string;
+  continents: string[];
   region: string;
   subregion: string;
-}
-
-interface FilterOptions {
-  independent?: boolean;
-  unMember?: boolean;
-  continent?: string;
-  region?: string;
-  subregion?: string;
 }
 
 class CountryService {
@@ -44,6 +36,12 @@ class CountryService {
     return countries.find((country) => country.cca2 === code) || null;
   }
 
+  getSortValue = (country: Country, sortBy: keyof Country): string | number => {
+    return sortBy === "name"
+      ? country.name.common
+      : (country[sortBy] as string | number);
+  };
+
   async getSortedCountries(
     countries: Country[] | undefined,
     sortBy: keyof Country,
@@ -53,14 +51,8 @@ class CountryService {
       countries = await this.getAllCountries();
     }
     return countries.sort((a, b) => {
-      let valueA, valueB;
-      if (sortBy === "name") {
-        valueA = a.name.common;
-        valueB = b.name.common;
-      } else {
-        valueA = a[sortBy];
-        valueB = b[sortBy];
-      }
+      const valueA = this.getSortValue(a, sortBy);
+      const valueB = this.getSortValue(b, sortBy);
       if (typeof valueA === "string" && typeof valueB === "string") {
         return sortOrder === "asc"
           ? valueA.localeCompare(valueB)
@@ -70,15 +62,19 @@ class CountryService {
       } else {
         throw new Error(`Unsupported sortBy parameter or type: ${sortBy}`);
       }
-    }); 
+    });
   }
 
-  async getFilteredCountries(
-    predicate: (country: Country, options: FilterOptions) => boolean,
-    options: FilterOptions
-  ): Promise<Country[]> {
+  async getFilteredCountries(options: Partial<Country>): Promise<Country[]> {
     const countries = await this.getAllCountries();
-    return countries.filter((country) => predicate(country, options));
+    return countries.filter((country) =>
+      Object.entries(options).every(([key, value]) => {
+        if (Array.isArray(value)) {
+          return value.includes(String(country[key as keyof Country]));
+        }
+        return String(country[key as keyof Country]) === String(value);
+      })
+    );
   }
 }
 

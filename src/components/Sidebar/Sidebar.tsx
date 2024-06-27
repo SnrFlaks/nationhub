@@ -26,8 +26,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
 
   useEffect(() => {
     const loadCountries = async () => {
+      const filteredCountries = await countryService.getFilteredCountries({
+        independent: true,
+        unMember: true,
+        continents: ["Europe", "Africa"],
+      });
       const sortedCountries = await countryService.getSortedCountries(
-        undefined,
+        filteredCountries,
         sortOption as keyof Country | "name",
         sortOrder as "asc" | "desc"
       );
@@ -42,10 +47,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
     setSortOrder("asc");
   };
 
-  const toggleSortOrder = () => {
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-  };
-
   return (
     <div className={`${styles.sidebarContainer}${isActive ? ` ${styles.open}` : ""}`}>
       <div className={styles.sidebarHeader}>
@@ -54,7 +55,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
       </div>
       <div className={styles.sidebarSettings}>
         <div className={styles.sortDropdown}>
-          <Button icon="swap_vert" onClick={toggleSortOrder} />
+          <Button
+            icon="swap_vert"
+            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+          />
           <StyledEngineProvider injectFirst>
             <FormControl>
               <Select value={sortOption} onChange={handleSortChange}>
