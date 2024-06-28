@@ -4,7 +4,7 @@ export interface Country {
   name: {
     common: string;
   };
-  flagUrl: string;
+  flagSvg: string;
   cca2: string;
   independent: boolean;
   unMember: boolean;
@@ -22,10 +22,17 @@ class CountryService {
       return JSON.parse(cachedCountries);
     } else {
       const response = await axios.get("https://restcountries.com/v3.1/all");
-      const countries = response.data.map((country: Country) => ({
-        ...country,
-        flagUrl: `https://catamphetamine.gitlab.io/country-flag-icons/3x2/${country.cca2}.svg`,
-      }));
+      const countries = await Promise.all(
+        response.data.map(async (country: Country) => {
+          const flagSvg = await axios.get(
+            `https://catamphetamine.gitlab.io/country-flag-icons/3x2/${country.cca2}.svg`
+          );
+          return {
+            ...country,
+            flagSvg: flagSvg.data,
+          };
+        })
+      );
       localStorage.setItem(this.cacheKey, JSON.stringify(countries));
       return countries;
     }

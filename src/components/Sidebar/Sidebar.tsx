@@ -22,15 +22,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [filterOptions, setFilterOptions] = useState<Partial<Country>>({
+    independent: true,
+  });
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
   useEffect(() => {
     const loadCountries = async () => {
-      const filteredCountries = await countryService.getFilteredCountries({
-        independent: true,
-        unMember: true,
-        continents: ["Europe", "Africa"],
-      });
+      const filteredCountries = await countryService.getFilteredCountries(filterOptions);
       const sortedCountries = await countryService.getSortedCountries(
         filteredCountries,
         sortOption as keyof Country | "name",
@@ -40,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
     };
 
     loadCountries();
-  }, [sortOption, sortOrder]);
+  }, [sortOption, sortOrder, filterOptions]);
 
   const handleSortChange = async (event: SelectChangeEvent<string>) => {
     setSortOption(event.target.value);
@@ -78,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
       <div className={styles.sidebarContent}>
         <table>
           <tbody>
-            {countries.map(({ cca2, name, flagUrl }) => (
+            {countries.map(({ cca2, name, flagSvg }) => (
               <tr
                 key={cca2}
                 className={`${styles.contentItem}${
@@ -88,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
               >
                 <td className={styles.countryFlag}>
                   <img
-                    src={flagUrl}
+                    src={`data:image/svg+xml,${encodeURIComponent(flagSvg)}`}
                     alt={`Flag of ${name.common}`}
                     className={`${styles.countryFlag} img`}
                   />
