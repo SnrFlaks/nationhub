@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import { Button, LogoTitle } from "@components/UI";
 import useTheme from "@hooks/useTheme";
-import Button from "@components/UI/Button/Button";
-import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
 import styles from "./Header.module.css";
 
 interface HeaderProps {

@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
-import Button from "@components/UI/Button/Button";
-import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
-import {
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  StyledEngineProvider,
-} from "@mui/material";
+import { Button, LogoTitle, Select } from "@components/UI";
+import { MenuItem, SelectChangeEvent } from "@mui/material";
 import { Country, countryService } from "@api/CountryService";
 import styles from "./Sidebar.module.css";
 import FilterModal from "@components/FilterModal/FilterModal";
@@ -58,15 +51,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
             icon="swap_vert"
             onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
           />
-          <StyledEngineProvider injectFirst>
-            <FormControl>
-              <Select value={sortOption} onChange={handleSortChange}>
-                <MenuItem value="name">Name</MenuItem>
-                <MenuItem value="area">Area</MenuItem>
-                <MenuItem value="population">Population</MenuItem>
-              </Select>
-            </FormControl>
-          </StyledEngineProvider>
+          <Select value={sortOption} onChange={handleSortChange}>
+            <MenuItem value="name">Name</MenuItem>
+            <MenuItem value="area">Area</MenuItem>
+            <MenuItem value="population">Population</MenuItem>
+          </Select>
         </div>
         <Button
           icon="filter_alt"
