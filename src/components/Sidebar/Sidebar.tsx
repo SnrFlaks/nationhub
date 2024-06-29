@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, LogoTitle, Select } from "@components/UI";
 import { MenuItem, SelectChangeEvent } from "@mui/material";
 import { Country, countryService } from "@api/CountryService";
-import styles from "./Sidebar.module.css";
 import FilterModal from "@components/FilterModal/FilterModal";
+import mergeClasses from "@utils/mergeClasses";
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
   isActive: boolean;
@@ -40,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
   };
 
   return (
-    <div className={`${styles.sidebarContainer}${isActive ? ` ${styles.open}` : ""}`}>
+    <div className={mergeClasses(styles.sidebarContainer, isActive, styles.open)}>
       <div className={styles.sidebarHeader}>
         <Button icon="menu" onClick={() => setActive(false)} />
         <LogoTitle />
@@ -69,9 +70,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
             {countries.map(({ cca2, name, flagSvg }) => (
               <tr
                 key={cca2}
-                className={`${styles.contentItem}${
-                  cca2 === selectedCountry ? ` ${styles.selected}` : ""
-                }`}
+                className={mergeClasses(
+                  styles.contentItem,
+                  cca2 === selectedCountry,
+                  styles.selected
+                )}
                 onClick={() => setSelectedCountry(cca2)}
               >
                 <td className={styles.countryFlag}>

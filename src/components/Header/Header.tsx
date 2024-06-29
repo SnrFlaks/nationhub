@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, LogoTitle } from "@components/UI";
 import useTheme from "@hooks/useTheme";
+import mergeClasses from "@utils/mergeClasses";
 import styles from "./Header.module.css";
 
 interface HeaderProps {
@@ -27,9 +28,7 @@ const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
 
   return (
     <header
-      className={`${styles.headerContainer}${
-        isSearchMode ? ` ${styles.searchMode}` : ""
-      }`}
+      className={mergeClasses(styles.headerContainer, isSearchMode, styles.searchMode)}
     >
       <div className={styles.start}>
         <Button icon="menu" onClick={() => setSidebarActive(true)} />

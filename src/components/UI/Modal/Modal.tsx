@@ -1,3 +1,4 @@
+import mergeClasses from "@utils/mergeClasses";
 import styles from "./Modal.module.css";
 
 interface ModalProps {
@@ -9,7 +10,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isActive, setActive, children }) => {
   return (
     <div
-      className={`${styles.modalContainer}${isActive ? ` ${styles.active}` : ""}`}
+      className={mergeClasses(styles.modalContainer, isActive, styles.active)}
       onClick={() => setActive(false)}
     >
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
