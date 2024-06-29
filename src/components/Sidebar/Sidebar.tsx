@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "@components/UI/Button/Button";
 import LogoTitle from "@components/UI/LogoTitle/LogoTitle";
-import Modal from "@components/UI/Modal/Modal";
 import {
   FormControl,
   MenuItem,
@@ -11,6 +10,7 @@ import {
 } from "@mui/material";
 import { Country, countryService } from "@api/CountryService";
 import styles from "./Sidebar.module.css";
+import FilterModal from "@components/FilterModal/FilterModal";
 
 interface SidebarProps {
   isActive: boolean;
@@ -98,7 +98,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
           </tbody>
         </table>
       </div>
-      <Modal isActive={isModalActive} setActive={setIsModalActive}></Modal>
+      <FilterModal
+        isActive={isModalActive}
+        setActive={setIsModalActive}
+        filterOptions={filterOptions}
+        setFilterOptions={setFilterOptions}
+      />
     </div>
   );
 };

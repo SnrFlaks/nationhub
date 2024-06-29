@@ -1,0 +1,29 @@
+.filterContainer {
+}
+
+.filterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.title {
+  font-size: 1.3em;
+  padding-left: 8px;
+  margin: 0;
+}
+
+.closeBtn {
+  justify-content: right;
+}
+
+.filterContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+}
