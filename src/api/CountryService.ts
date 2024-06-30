@@ -11,6 +11,8 @@ export interface Country {
   continents: string[];
   region: string;
   subregion: string;
+  area: { min?: number; max?: number };
+  population: { min?: number; max?: number };
 }
 
 class CountryService {
@@ -78,10 +80,35 @@ class CountryService {
       Object.entries(options).every(([key, value]) => {
         if (Array.isArray(value)) {
           return value.includes(String(country[key as keyof Country]));
+        } else if (typeof value === "object") {
+          const countryValue = country[key as keyof Country];
+          if (typeof countryValue === "number") {
+            const { min, max } = value as { min?: number; max?: number };
+            return (
+              (min === undefined || countryValue >= min) &&
+              (max === undefined || countryValue <= max)
+            );
+          }
+          return false;
+        } else {
+          return String(country[key as keyof Country]) === String(value);
         }
-        return String(country[key as keyof Country]) === String(value);
       })
     );
+  }
+
+  async getMin<T extends keyof Country>(
+    property: T
+  ): Promise<number | undefined> {
+    const countries = await this.getAllCountries();
+    return Math.min(...countries.map((country) => Number(country[property])));
+  }
+
+  async getMax<T extends keyof Country>(
+    property: T
+  ): Promise<number | undefined> {
+    const countries = await this.getAllCountries();
+    return Math.max(...countries.map((country) => Number(country[property])));
   }
 }
 

@@ -41,3 +41,15 @@
 .MuiButtonBase-root:hover {
   background: color-mix(in srgb, var(--text-primary), transparent 96%);
 }
+
+.MuiSlider-root {
+  color: var(--text-secondary);
+}
+
+.MuiSlider-thumb:hover {
+  box-shadow: 0px 0px 0px 8px color-mix(in srgb, var(--text-primary), transparent 96%);
+}
+.MuiSlider-thumb.Mui-active,
+.MuiSlider-thumb.Mui-active:hover {
+  box-shadow: 0px 0px 0px 14px color-mix(in srgb, var(--text-primary), transparent 96%);
+}

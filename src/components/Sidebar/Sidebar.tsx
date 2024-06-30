@@ -18,6 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [filterOptions, setFilterOptions] = useState<Partial<Country>>({
     independent: true,
+    unMember: true,
   });
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
