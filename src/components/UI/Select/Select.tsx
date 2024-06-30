@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  Select as MuiSelect,
-  SelectChangeEvent,
-  StyledEngineProvider,
-} from "@mui/material";
+import { FormControl, Select as MuiSelect, SelectChangeEvent } from "@mui/material";
 
 interface SelectProps {
   value: string;
@@ -13,13 +8,11 @@ interface SelectProps {
 
 const Select: React.FC<SelectProps> = ({ value, onChange, children }) => {
   return (
-    <StyledEngineProvider injectFirst>
-      <FormControl>
-        <MuiSelect value={value} onChange={onChange}>
-          {children}
-        </MuiSelect>
-      </FormControl>
-    </StyledEngineProvider>
+    <FormControl>
+      <MuiSelect value={value} onChange={onChange}>
+        {children}
+      </MuiSelect>
+    </FormControl>
   );
 };
 
