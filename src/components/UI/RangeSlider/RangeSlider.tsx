@@ -1,17 +1,16 @@
-import { Slider } from "@mui/material";
+import { Slider, SliderProps } from "@mui/material";
 
-interface RangeSliderProps {
-  className?: string;
+interface RangeSliderProps extends SliderProps {
   range: [number, number];
   minMaxRange: [number, number];
   setRange: React.Dispatch<React.SetStateAction<[number, number]>>;
 }
 
 const RangeSlider: React.FC<RangeSliderProps> = ({
-  className,
   range,
   minMaxRange,
   setRange,
+  ...props
 }) => {
   const minDistance = minMaxRange[1] * 0.1;
 
@@ -29,15 +28,14 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
 
   return (
     <Slider
-      className={className}
       value={range}
       step={minDistance * 0.1}
       onChange={(_, newValue, activeThumb) => {
         handleRangeChange(newValue, activeThumb);
       }}
-      valueLabelDisplay="auto"
       min={minMaxRange[0]}
       max={minMaxRange[1]}
+      {...props}
       disableSwap
     />
   );

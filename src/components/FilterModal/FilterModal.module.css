@@ -17,6 +17,20 @@
 
 .filterContent {
   display: flex;
+  justify-content: space-between;
+}
+
+.checkboxContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.sliderContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
   flex-direction: column;
 }
 
@@ -27,13 +41,25 @@
   cursor: pointer;
 }
 
+.separator {
+  font-size: 1em;
+  font-weight: 400;
+  padding: 0 0.35em;
+  color: var(--text-secondary);
+}
+
+.input {
+  width: 25%;
+  background: var(--bkg-tertiary);
+}
+
 .sliderOption {
   display: flex;
   flex-direction: column;
   margin-left: 8px;
 }
 .sliderOption .slider {
-  width: 35%;
+  width: 60%;
 }
 
 .filterFooter {

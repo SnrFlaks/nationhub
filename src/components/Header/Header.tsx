@@ -3,6 +3,7 @@ import { Button, LogoTitle } from "@components/UI";
 import useTheme from "@hooks/useTheme";
 import mergeClasses from "@utils/mergeClasses";
 import styles from "./Header.module.css";
+import Input from "@components/UI/Input/Input";
 
 interface HeaderProps {
   setSidebarActive: (active: boolean) => void;
@@ -36,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
       </div>
       <div className={styles.center}>
         <Button icon="arrow_back" className={styles.backBtn} onClick={toggleSearch} />
-        <input
+        <Input
           type="text"
           className={styles.searchInput}
           placeholder="Search..."

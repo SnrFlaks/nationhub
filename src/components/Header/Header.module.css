@@ -28,26 +28,8 @@
 }
 
 .searchInput {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  border-color: var(--border-primary);
-  padding: 0.6em;
   font-size: 1em;
   font-weight: 500;
-  color: var(--text-primary);
-  background: var(--bkg-secondary);
-  box-sizing: border-box;
-}
-.searchInput:hover {
-  border-color: var(--green);
-  transition: border-color 0.25s;
-}
-.searchInput:focus {
-  border: none;
-  outline-color: var(--border-primary);
-  outline-style: solid;
-  outline-width: 2px;
 }
 
 .backBtn,
