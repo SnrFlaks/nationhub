@@ -18,11 +18,11 @@
 .filterContent {
   display: flex;
   justify-content: space-between;
-  height: 100%;
 }
 
 .checkboxContainer,
 .rangeContainer {
+  max-width: 512px;
   width: 256px;
 }
 
@@ -39,57 +39,10 @@
   margin-left: 8px;
 }
 
-.rangeHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-.dropdownIcon {
-  justify-content: flex-end;
-  padding: 8px;
-}
-
-.rangeContent {
-  display: none;
-}
-
-.isOpen {
-  display: flex;
-  flex-direction: column;
-}
-
-.separator {
-  font-size: 1em;
-  font-weight: 400;
-  padding: 0 0.35em;
-  color: var(--text-secondary);
-  user-select: none;
-}
-
-.inputContainer {
-  width: 75%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.input {
-  background: var(--bkg-tertiary);
-}
-
-.slider {
-  width: calc(100% - 28px);
-  margin-left: 8px;
-}
-
 .filterFooter {
   display: flex;
   justify-content: flex-end;
-  position: relative;
   padding-top: 8px;
-  bottom: 0;
 }
 
 .applyBtn {
@@ -112,12 +65,14 @@
     width: auto;
   }
 
-  .inputContainer {
-    width: auto;
-    margin-right: 8px;
+  .filterFooter {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    width: 100%;
   }
 
-  .input {
-    font-size: 0.8em;
+  .applyBtn {
+    font-size: 1.2em;
   }
 }

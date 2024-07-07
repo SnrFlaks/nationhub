@@ -37,6 +37,7 @@
   .modalContent {
     border-radius: 0;
     background: var(--bkg-secondary);
+    min-width: auto;
     height: 100vh;
     width: 100vw;
     padding: 0 16px;

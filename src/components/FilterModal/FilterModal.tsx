@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Checkbox from "@mui/material/Checkbox";
-import { Button, Modal, RangeSlider } from "@components/UI";
+import { Button, Modal } from "@components/UI";
 import { Country } from "@api/CountryService";
-import styles from "./FilterModal.module.css";
 import useRange from "@hooks/useRange";
-import Input from "@components/UI/Input/Input";
-import { Icon } from "@mui/material";
-import mergeClasses from "@utils/mergeClasses";
+import { Checkbox } from "@mui/material";
+import Range from "./Options/Range/Range";
+import styles from "./FilterModal.module.css";
 
 interface FilterModalProps {
   isActive: boolean;
@@ -26,8 +24,6 @@ const FilterModal: React.FC<FilterModalProps> = ({
   const [populationRange, minMaxPopulationRange, setPopulationRange] =
     useRange("population");
   const [areaRange, minMaxAreaRange, setAreaRange] = useRange("area");
-  const [isPopulationOpen, setIsPopulationOpen] = useState(true);
-  const [isAreaOpen, setIsAreaOpen] = useState(true);
 
   useEffect(() => {
     setLocalFilterOptions((prevOptions) => ({
@@ -80,102 +76,20 @@ const FilterModal: React.FC<FilterModalProps> = ({
           </label>
         </div>
         <div className={styles.rangeContainer}>
-          <div className={styles.rangeOption}>
-            <label
-              className={styles.rangeHeader}
-              onClick={() => setIsPopulationOpen(!isPopulationOpen)}
-            >
-              <span>Population</span>
-              <Icon className={styles.dropdownIcon}>
-                {isPopulationOpen ? "keyboard_arrow_up" : "keyboard_arrow_down"}
-              </Icon>
-            </label>
-            <div
-              className={mergeClasses(
-                styles.rangeContent,
-                isPopulationOpen,
-                styles.isOpen
-              )}
-            >
-              <div className={styles.inputContainer}>
-                <Input
-                  type="string"
-                  className={styles.input}
-                  value={populationRange[0]}
-                  onChange={(e) =>
-                    setPopulationRange([
-                      parseInt(e.target.value) || 0,
-                      populationRange[1],
-                    ])
-                  }
-                  min={minMaxPopulationRange[0]}
-                  max={populationRange[1]}
-                />
-                <span className={styles.separator}>-</span>
-                <Input
-                  type="string"
-                  className={styles.input}
-                  value={populationRange[1]}
-                  onChange={(e) =>
-                    setPopulationRange([
-                      populationRange[0],
-                      parseInt(e.target.value) || 0,
-                    ])
-                  }
-                  min={populationRange[0]}
-                  max={minMaxPopulationRange[1]}
-                />
-              </div>
-              <RangeSlider
-                className={`${styles.slider}`}
-                range={populationRange}
-                setRange={setPopulationRange}
-                minMaxRange={minMaxPopulationRange}
-              />
-            </div>
-          </div>
-          <div className={styles.rangeOption}>
-            <label
-              className={styles.rangeHeader}
-              onClick={() => setIsAreaOpen(!isAreaOpen)}
-            >
-              <span>Area</span>
-              <Icon className={styles.dropdownIcon}>
-                {isAreaOpen ? "keyboard_arrow_up" : "keyboard_arrow_down"}
-              </Icon>
-            </label>
-            <div className={mergeClasses(styles.rangeContent, isAreaOpen, styles.isOpen)}>
-              <div className={styles.inputContainer}>
-                <Input
-                  type="string"
-                  className={styles.input}
-                  value={areaRange[0]}
-                  onChange={(e) =>
-                    setAreaRange([parseInt(e.target.value) || 0, areaRange[1]])
-                  }
-                  min={minMaxAreaRange[0]}
-                  max={areaRange[1]}
-                />
-                <span className={styles.separator}>-</span>
-                <Input
-                  type="string"
-                  className={styles.input}
-                  value={areaRange[1]}
-                  onChange={(e) =>
-                    setAreaRange([areaRange[0], parseInt(e.target.value) || 0])
-                  }
-                  min={areaRange[0]}
-                  max={minMaxAreaRange[1]}
-                />
-              </div>
-              <RangeSlider
-                className={`${styles.slider}`}
-                range={areaRange}
-                setRange={setAreaRange}
-                minMaxRange={minMaxAreaRange}
-              />
-            </div>
-          </div>
+          <Range
+            range={populationRange}
+            minMaxRange={minMaxPopulationRange}
+            setRange={setPopulationRange}
+            className={styles.rangeOption}
+            label="Population"
+          />
+          <Range
+            range={areaRange}
+            minMaxRange={minMaxAreaRange}
+            setRange={setAreaRange}
+            className={styles.rangeOption}
+            label="Area"
+          />
         </div>
       </div>
       <div className={styles.filterFooter}>
