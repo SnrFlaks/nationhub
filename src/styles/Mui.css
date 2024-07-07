@@ -42,6 +42,10 @@
   background: color-mix(in srgb, var(--text-primary), transparent 96%);
 }
 
+.MuiCheckbox-root {
+  padding: 8px;
+}
+
 .MuiSlider-root {
   color: var(--text-secondary);
   height: 3px;

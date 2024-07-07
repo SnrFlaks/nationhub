@@ -18,20 +18,12 @@
 .filterContent {
   display: flex;
   justify-content: space-between;
+  height: 100%;
 }
 
-.checkboxContainer {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-
-.sliderContainer {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
+.checkboxContainer,
+.rangeContainer {
+  width: 256px;
 }
 
 .checkboxOption {
@@ -41,33 +33,91 @@
   cursor: pointer;
 }
 
+.rangeOption {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+
+.rangeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdownIcon {
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.rangeContent {
+  display: none;
+}
+
+.isOpen {
+  display: flex;
+  flex-direction: column;
+}
+
 .separator {
   font-size: 1em;
   font-weight: 400;
   padding: 0 0.35em;
   color: var(--text-secondary);
+  user-select: none;
+}
+
+.inputContainer {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .input {
-  width: 25%;
   background: var(--bkg-tertiary);
 }
 
-.sliderOption {
-  display: flex;
-  flex-direction: column;
+.slider {
+  width: calc(100% - 28px);
   margin-left: 8px;
-}
-.sliderOption .slider {
-  width: 60%;
 }
 
 .filterFooter {
   display: flex;
   justify-content: flex-end;
+  position: relative;
   padding-top: 8px;
+  bottom: 0;
 }
 
 .applyBtn {
   background-color: var(--bkg-tertiary);
+  margin: 8px;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 1.7em;
+  }
+
+  .filterContent {
+    display: block;
+    font-size: 1.2em;
+  }
+
+  .checkboxContainer,
+  .rangeContainer {
+    width: auto;
+  }
+
+  .inputContainer {
+    width: auto;
+    margin-right: 8px;
+  }
+
+  .input {
+    font-size: 0.8em;
+  }
 }
