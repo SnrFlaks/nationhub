@@ -21,15 +21,15 @@ const FilterModal: React.FC<FilterModalProps> = ({
 }) => {
   const [localFilterOptions, setLocalFilterOptions] =
     useState<Partial<Country>>(filterOptions);
+  const [areaRange, minMaxAreaRange, setAreaRange] = useRange("area");
   const [populationRange, minMaxPopulationRange, setPopulationRange] =
     useRange("population");
-  const [areaRange, minMaxAreaRange, setAreaRange] = useRange("area");
 
   useEffect(() => {
     setLocalFilterOptions((prevOptions) => ({
       ...prevOptions,
-      population: { min: populationRange[0], max: populationRange[1] },
       area: { min: areaRange[0], max: areaRange[1] },
+      population: { min: populationRange[0], max: populationRange[1] },
     }));
   }, [populationRange, areaRange]);
 
@@ -77,18 +77,18 @@ const FilterModal: React.FC<FilterModalProps> = ({
         </div>
         <div className={styles.rangeContainer}>
           <Range
-            range={populationRange}
-            minMaxRange={minMaxPopulationRange}
-            setRange={setPopulationRange}
-            className={styles.rangeOption}
-            label="Population"
-          />
-          <Range
             range={areaRange}
             minMaxRange={minMaxAreaRange}
             setRange={setAreaRange}
             className={styles.rangeOption}
             label="Area"
+          />
+          <Range
+            range={populationRange}
+            minMaxRange={minMaxPopulationRange}
+            setRange={setPopulationRange}
+            className={styles.rangeOption}
+            label="Population"
           />
         </div>
       </div>

@@ -34,7 +34,7 @@ const Range: React.FC<RangeProps> = ({
           <Input
             type="string"
             className={styles.input}
-            value={range[0]}
+            value={range[0].toFixed(2)}
             onChange={(e) => setRange([parseInt(e.target.value) || 0, range[1]])}
             min={minMaxRange[0]}
             max={range[1]}
@@ -43,7 +43,7 @@ const Range: React.FC<RangeProps> = ({
           <Input
             type="string"
             className={styles.input}
-            value={range[1]}
+            value={range[1].toFixed(2)}
             onChange={(e) => setRange([range[0], parseInt(e.target.value) || 0])}
             min={range[0]}
             max={minMaxRange[1]}
