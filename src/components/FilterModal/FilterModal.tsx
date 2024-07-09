@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "@components/UI";
-import { Country } from "@api/CountryService";
+import { FilterOptions } from "@api/CountryService";
 import useRange from "@hooks/useRange";
 import { Checkbox } from "@mui/material";
 import Range from "./Options/Range/Range";
@@ -9,8 +9,8 @@ import styles from "./FilterModal.module.css";
 interface FilterModalProps {
   isActive: boolean;
   setActive: (active: boolean) => void;
-  filterOptions: Partial<Country>;
-  setFilterOptions: (options: Partial<Country>) => void;
+  filterOptions: FilterOptions;
+  setFilterOptions: (options: FilterOptions) => void;
 }
 
 const FilterModal: React.FC<FilterModalProps> = ({
@@ -20,18 +20,23 @@ const FilterModal: React.FC<FilterModalProps> = ({
   setFilterOptions,
 }) => {
   const [localFilterOptions, setLocalFilterOptions] =
-    useState<Partial<Country>>(filterOptions);
+    useState<FilterOptions>(filterOptions);
   const [areaRange, minMaxAreaRange, setAreaRange] = useRange("area");
   const [populationRange, minMaxPopulationRange, setPopulationRange] =
     useRange("population");
+  const [gdpRange, minMaxGdpRange, setGdpRange] = useRange("gdp");
+  const [gdpPerCapitaRange, minMaxGdpPerCapitaRange, setGdpPerCapitaRange] =
+    useRange("gdpPerCapita");
 
   useEffect(() => {
     setLocalFilterOptions((prevOptions) => ({
       ...prevOptions,
       area: { min: areaRange[0], max: areaRange[1] },
       population: { min: populationRange[0], max: populationRange[1] },
+      gdp: { min: gdpRange[0], max: gdpRange[1] },
+      gdpPerCapita: { min: gdpPerCapitaRange[0], max: gdpPerCapitaRange[1] },
     }));
-  }, [populationRange, areaRange]);
+  }, [populationRange, areaRange, gdpRange, gdpPerCapitaRange]);
 
   const applyFilters = () => {
     setFilterOptions(localFilterOptions);
@@ -89,6 +94,20 @@ const FilterModal: React.FC<FilterModalProps> = ({
             setRange={setPopulationRange}
             className={styles.rangeOption}
             label="Population"
+          />
+          <Range
+            range={gdpRange}
+            minMaxRange={minMaxGdpRange}
+            setRange={setGdpRange}
+            className={styles.rangeOption}
+            label="GDP"
+          />
+          <Range
+            range={gdpPerCapitaRange}
+            minMaxRange={minMaxGdpPerCapitaRange}
+            setRange={setGdpPerCapitaRange}
+            className={styles.rangeOption}
+            label="GDP per capita"
           />
         </div>
       </div>

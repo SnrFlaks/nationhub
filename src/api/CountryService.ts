@@ -12,11 +12,20 @@ export interface Country {
   region: string;
   subregion: string;
   area: { min?: number; max?: number };
-  population: { min?: number; max?: number };
+  population: number | null;
+  populationHistory: { year: number; value: number }[] | null;
   gdp: number | null;
   gdpHistory: { year: number; value: number }[] | null;
   gdpPerCapita: number | null;
   gdpPerCapitaHistory: { year: number; value: number }[] | null;
+}
+
+export interface FilterOptions {
+  independent?: boolean;
+  unMember?: boolean;
+  population?: { min: number; max: number };
+  gdp?: { min: number; max: number };
+  gdpPerCapita?: { min: number; max: number };
 }
 
 class CountryService {
@@ -42,6 +51,10 @@ class CountryService {
     const response = await axios.get("https://restcountries.com/v3.1/all");
     return await Promise.all(
       response.data.map(async (countryData: Country) => {
+        const populationData = await this.fetchWorldBankData(
+          countryData.cca2,
+          "SP.POP.TOTL"
+        );
         const gdpData = await this.fetchWorldBankData(
           countryData.cca2,
           "NY.GDP.MKTP.CD"
@@ -65,7 +78,8 @@ class CountryService {
           region: countryData.region,
           subregion: countryData.subregion,
           area: countryData.area,
-          population: countryData.population,
+          population: populationData.value,
+          populationHistory: populationData.history,
           gdp: gdpData.value,
           gdpHistory: gdpData.history,
           gdpPerCapita: gdpPerCapitaData.value,
@@ -130,7 +144,7 @@ class CountryService {
     });
   }
 
-  async getFilteredCountries(options: Partial<Country>): Promise<Country[]> {
+  async getFilteredCountries(options: FilterOptions): Promise<Country[]> {
     const countries = await this.getAllCountries();
     return countries.filter((country) =>
       Object.entries(options).every(([key, value]) => {

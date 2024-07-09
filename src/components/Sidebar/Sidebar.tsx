@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, LogoTitle, Select } from "@components/UI";
 import { MenuItem, SelectChangeEvent } from "@mui/material";
-import { Country, countryService } from "@api/CountryService";
+import { Country, countryService, FilterOptions } from "@api/CountryService";
 import FilterModal from "@components/FilterModal/FilterModal";
 import mergeClasses from "@utils/mergeClasses";
 import styles from "./Sidebar.module.css";
@@ -16,7 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [filterOptions, setFilterOptions] = useState<Partial<Country>>({
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     independent: true,
     unMember: true,
   });
