@@ -1,18 +1,38 @@
-import { useState } from "react";
-import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Header, Sidebar, Content } from "./components";
 import "./styles/App.css";
 import "./styles/Mui.css";
-import { StyledEngineProvider } from "@mui/material";
 
 function App() {
+  const { countryCode } = useParams();
+  const navigate = useNavigate();
   const [isSidebarActive, setIsSidebarActive] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+
+  useEffect(() => {
+    if (countryCode) {
+      setSelectedCountry(countryCode.toUpperCase());
+    }
+  }, [countryCode]);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      navigate(`/${selectedCountry.toLowerCase()}`);
+    }
+  }, [selectedCountry, navigate]);
 
   return (
-    <StyledEngineProvider injectFirst>
+    <>
       <Header setSidebarActive={setIsSidebarActive} />
-      <Sidebar isActive={isSidebarActive} setActive={setIsSidebarActive} />
-    </StyledEngineProvider>
+      <Sidebar
+        isActive={isSidebarActive}
+        setActive={setIsSidebarActive}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+      />
+      <Content selectedCountry={selectedCountry} />
+    </>
   );
 }
 

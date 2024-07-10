@@ -9,11 +9,17 @@ import styles from "./Sidebar.module.css";
 interface SidebarProps {
   isActive: boolean;
   setActive: (active: boolean) => void;
+  selectedCountry: string;
+  setSelectedCountry: (selected: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isActive, setActive }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isActive,
+  setActive,
+  selectedCountry,
+  setSelectedCountry,
+}) => {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({

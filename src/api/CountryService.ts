@@ -4,6 +4,8 @@ export interface Country {
   name: {
     common: string;
   };
+  description: string;
+  extract: string;
   flagSvg: string;
   cca2: string;
   independent: boolean;
@@ -51,6 +53,9 @@ class CountryService {
     const response = await axios.get("https://restcountries.com/v3.1/all");
     return await Promise.all(
       response.data.map(async (countryData: Country) => {
+        const wikiData = await axios.get(
+          `https://en.wikipedia.org/api/rest_v1/page/summary/${countryData.name.common}`
+        );
         const populationData = await this.fetchWorldBankData(
           countryData.cca2,
           "SP.POP.TOTL"
@@ -70,6 +75,8 @@ class CountryService {
           name: {
             common: countryData.name.common,
           },
+          description: wikiData.data.description,
+          extract: wikiData.data.extract,
           flagSvg: flagSvg.data,
           cca2: countryData.cca2,
           independent: countryData.independent,
