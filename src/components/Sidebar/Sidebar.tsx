@@ -50,13 +50,16 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div className={mergeClasses(styles.sidebarContainer, isActive, styles.open)}>
       <div className={styles.sidebarHeader}>
-        <Button icon="menu" onClick={() => setActive(false)} />
+        <Button icon="menu" aria-label="Close sidebar" onClick={() => setActive(false)} />
         <LogoTitle />
       </div>
       <div className={styles.sidebarSettings}>
         <div className={styles.sortDropdown}>
           <Button
             icon="swap_vert"
+            aria-label={`Sort by ${
+              sortOrder === "asc" ? "descending" : "ascending"
+            } order`}
             onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
           />
           <Select value={sortOption} onChange={handleSortChange}>
@@ -68,6 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <Button
           icon="filter_alt"
           className={styles.filterBtn}
+          aria-label="Open filter options"
           onClick={() => setIsModalActive(true)}
         />
       </div>

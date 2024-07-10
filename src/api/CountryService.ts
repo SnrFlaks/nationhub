@@ -53,9 +53,15 @@ class CountryService {
     const response = await axios.get("https://restcountries.com/v3.1/all");
     return await Promise.all(
       response.data.map(async (countryData: Country) => {
-        const wikiData = await axios.get(
-          `https://en.wikipedia.org/api/rest_v1/page/summary/${countryData.name.common}`
-        );
+        const specialCases: { [key: string]: string } = {
+          GE: "Georgia_(country)",
+          PS: "State_of_Palestine",
+          MF: "Saint_Martin_(island)",
+        };
+        const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${
+          specialCases[countryData.cca2] || countryData.name.common
+        }`;
+        const wikiData = await axios.get(wikiUrl);
         const populationData = await this.fetchWorldBankData(
           countryData.cca2,
           "SP.POP.TOTL"

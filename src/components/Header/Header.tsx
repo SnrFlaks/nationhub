@@ -32,22 +32,41 @@ const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
       className={mergeClasses(styles.headerContainer, isSearchMode, styles.searchMode)}
     >
       <div className={styles.start}>
-        <Button icon="menu" onClick={() => setSidebarActive(true)} />
+        <Button
+          icon="menu"
+          aria-label="Open sidebar"
+          onClick={() => setSidebarActive(true)}
+        />
         <LogoTitle />
       </div>
       <div className={styles.center}>
-        <Button icon="arrow_back" className={styles.backBtn} onClick={toggleSearch} />
+        <Button
+          icon="arrow_back"
+          className={styles.backBtn}
+          aria-label="Close search"
+          onClick={toggleSearch}
+        />
         <Input
           type="text"
           className={styles.searchInput}
           placeholder="Search..."
+          aria-label="Search for a country"
           ref={(input) => isSearchMode && input && input.focus()}
         />
-        <Button icon="search" className={styles.searchBtn} onClick={toggleSearch} />
+        <Button
+          icon="search"
+          className={styles.searchBtn}
+          aria-label="Open search"
+          onClick={toggleSearch}
+        />
       </div>
       <div className={styles.end}>
-        <Button icon={isDarkMode ? "dark_mode" : "light_mode"} onClick={toggleTheme} />
-        <Button icon="settings" />
+        <Button
+          icon={isDarkMode ? "dark_mode" : "light_mode"}
+          aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          onClick={toggleTheme}
+        />
+        <Button icon="settings" aria-label="Settings" />
       </div>
     </header>
   );

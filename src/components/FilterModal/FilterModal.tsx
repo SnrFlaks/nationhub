@@ -44,12 +44,13 @@ const FilterModal: React.FC<FilterModalProps> = ({
   };
 
   return (
-    <Modal isActive={isActive} setActive={setActive}>
+    <Modal isActive={isActive} setActive={setActive} aria-labelledby={styles.title}>
       <div className={styles.filterHeader}>
         <h3 className={styles.title}>Filter Options</h3>
         <Button
           icon="close"
           className={styles.closeBtn}
+          aria-label="Close filter options"
           onClick={() => setActive(false)}
         />
       </div>
@@ -64,8 +65,9 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   independent: e.target.checked,
                 });
               }}
+              aria-labelledby="independent-label"
             />
-            <span>Independent</span>
+            <span id="independent-label">Independent</span>
           </label>
           <label className={styles.checkboxOption}>
             <Checkbox
@@ -76,8 +78,9 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   unMember: e.target.checked,
                 });
               }}
+              aria-labelledby="un-member-label"
             />
-            <span>UN Member</span>
+            <span id="un-member-label">UN Member</span>
           </label>
         </div>
         <div className={styles.rangeContainer}>

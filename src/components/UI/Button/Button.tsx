@@ -8,7 +8,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({ children, icon, className, ...props }) => {
   return icon ? (
-    <IconButton className={className} onClick={props.onClick}>
+    <IconButton
+      className={className}
+      onClick={props.onClick}
+      aria-label={props["aria-label"]}
+    >
       <Icon className={styles.icon}>{icon}</Icon>
     </IconButton>
   ) : (
