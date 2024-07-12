@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Content.module.css";
 import { Country, countryService } from "@api/CountryService";
+import { Helmet } from "react-helmet";
 
 interface ContentProps {
   selectedCountry: string;
@@ -19,22 +20,30 @@ const Content = ({ selectedCountry }: ContentProps) => {
   }, [selectedCountry]);
 
   return (
-    <div className={styles.contentContainer}>
+    <>
       {country && (
-        <>
-          <div className={styles.countryHeader}>
-            <img
-              src={`data:image/svg+xml,${encodeURIComponent(country.flagSvg)}`}
-              alt={`Flag of ${country.name.common}`}
-              className={`${styles.countryFlag} img`}
-            />
-            <h1 className={styles.countryName}>{country.name.common}</h1>
-          </div>
-          <h2 className={styles.countryDescription}>{country.description}</h2>
-          <p className={styles.countryExtract}>{country.extract}</p>
-        </>
+        <Helmet>
+          <title>{country.name.common}</title>
+          <meta name="description" content={country.extract} />
+        </Helmet>
       )}
-    </div>
+      <div className={styles.contentContainer}>
+        {country && (
+          <>
+            <div className={styles.countryHeader}>
+              <img
+                src={`data:image/svg+xml,${encodeURIComponent(country.flagSvg)}`}
+                alt={`Flag of ${country.name.common}`}
+                className={`${styles.countryFlag} img`}
+              />
+              <h1 className={styles.countryName}>{country.name.common}</h1>
+            </div>
+            <h2 className={styles.countryDescription}>{country.description}</h2>
+            <p className={styles.countryExtract}>{country.extract}</p>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

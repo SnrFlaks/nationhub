@@ -1,7 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./LogoTitle.module.css";
 
 const LogoTitle = () => {
-  return <h1 className={styles.logoTitle} />;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/");
+  };
+
+  return <h1 className={styles.logoTitle} onClick={handleClick} />;
 };
 
 export default LogoTitle;

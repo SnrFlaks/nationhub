@@ -1,6 +1,7 @@
 .logoTitle {
   font-size: 1.7em;
   padding-left: 8px;
+  cursor: pointer;
 }
 .logoTitle::before {
   content: "Nation";

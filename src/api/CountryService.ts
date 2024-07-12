@@ -11,7 +11,6 @@ export interface Country {
   independent: boolean;
   unMember: boolean;
   continents: string[];
-  region: string;
   area: { min?: number; max?: number };
   population: number | null;
   populationHistory: { year: number; value: number }[] | null;
@@ -55,7 +54,7 @@ class CountryService {
 
   private async fetchBasicCountry(): Promise<Country[]> {
     const response = await axios.get(
-      "https://restcountries.com/v3.1/all?fields=name,cca2,independent,unMember,continents,region,area"
+      "https://restcountries.com/v3.1/all?fields=name,cca2,independent,unMember,continents,area"
     );
     return response.data;
   }
