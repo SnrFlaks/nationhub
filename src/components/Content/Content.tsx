@@ -22,9 +22,16 @@ const Content = ({ selectedCountry }: ContentProps) => {
     <div className={styles.contentContainer}>
       {country && (
         <>
-          <h1 className={styles.contentTitle}>{country.name.common}</h1>
-          <h2 className={styles.contentDescription}>{country.description}</h2>
-          <p className={styles.contentExtract}>{country.extract}</p>
+          <div className={styles.countryHeader}>
+            <img
+              src={`data:image/svg+xml,${encodeURIComponent(country.flagSvg)}`}
+              alt={`Flag of ${country.name.common}`}
+              className={`${styles.countryFlag} img`}
+            />
+            <h1 className={styles.countryName}>{country.name.common}</h1>
+          </div>
+          <h2 className={styles.countryDescription}>{country.description}</h2>
+          <p className={styles.countryExtract}>{country.extract}</p>
         </>
       )}
     </div>

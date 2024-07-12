@@ -12,7 +12,6 @@ export interface Country {
   unMember: boolean;
   continents: string[];
   region: string;
-  subregion: string;
   area: { min?: number; max?: number };
   population: number | null;
   populationHistory: { year: number; value: number }[] | null;
@@ -34,8 +33,8 @@ class CountryService {
   private cacheKey = "countries";
   private fetchPromise: Promise<Country[]> | null = null;
 
-  async getAllCountries(): Promise<Country[]> {
-    const cachedCountries = localStorage.getItem(this.cacheKey);
+  async getCountries(): Promise<Country[]> {
+    const cachedCountries = sessionStorage.getItem(this.cacheKey);
     if (cachedCountries) {
       return JSON.parse(cachedCountries);
     }
@@ -44,53 +43,49 @@ class CountryService {
     }
     this.fetchPromise = this.fetchCountries();
     const countries = await this.fetchPromise;
-    localStorage.setItem(this.cacheKey, JSON.stringify(countries));
+    sessionStorage.setItem(this.cacheKey, JSON.stringify(countries));
     this.fetchPromise = null;
     return countries;
   }
 
   private async fetchCountries(): Promise<Country[]> {
-    const response = await axios.get("https://restcountries.com/v3.1/all");
+    const countries = await this.fetchBasicCountry();
+    return this.fetchDetailCountry(countries);
+  }
+
+  private async fetchBasicCountry(): Promise<Country[]> {
+    const response = await axios.get(
+      "https://restcountries.com/v3.1/all?fields=name,cca2,independent,unMember,continents,region,area"
+    );
+    return response.data;
+  }
+
+  private async fetchDetailCountry(countries: Country[]): Promise<Country[]> {
+    const specialCases: { [key: string]: string } = {
+      GE: "Georgia_(country)",
+      PS: "State_of_Palestine",
+      MF: "Saint_Martin_(island)",
+    };
     return await Promise.all(
-      response.data.map(async (countryData: Country) => {
-        const specialCases: { [key: string]: string } = {
-          GE: "Georgia_(country)",
-          PS: "State_of_Palestine",
-          MF: "Saint_Martin_(island)",
-        };
+      countries.map(async (country) => {
         const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${
-          specialCases[countryData.cca2] || countryData.name.common
+          specialCases[country.cca2] || country.name.common
         }`;
-        const wikiData = await axios.get(wikiUrl);
-        const populationData = await this.fetchWorldBankData(
-          countryData.cca2,
-          "SP.POP.TOTL"
-        );
-        const gdpData = await this.fetchWorldBankData(
-          countryData.cca2,
-          "NY.GDP.MKTP.CD"
-        );
-        const gdpPerCapitaData = await this.fetchWorldBankData(
-          countryData.cca2,
-          "NY.GDP.PCAP.CD"
-        );
-        const flagSvg = await axios.get(
-          `https://catamphetamine.gitlab.io/country-flag-icons/3x2/${countryData.cca2}.svg`
-        );
-        const country: Country = {
-          name: {
-            common: countryData.name.common,
-          },
+        const [wikiData, populationData, gdpData, gdpPerCapitaData, flagSvg] =
+          await Promise.all([
+            axios.get(wikiUrl),
+            this.fetchWorldBankData(country.cca2, "SP.POP.TOTL"),
+            this.fetchWorldBankData(country.cca2, "NY.GDP.MKTP.CD"),
+            this.fetchWorldBankData(country.cca2, "NY.GDP.PCAP.CD"),
+            axios.get(
+              `https://catamphetamine.gitlab.io/country-flag-icons/3x2/${country.cca2}.svg`
+            ),
+          ]);
+        return {
+          ...country,
           description: wikiData.data.description,
           extract: wikiData.data.extract,
           flagSvg: flagSvg.data,
-          cca2: countryData.cca2,
-          independent: countryData.independent,
-          unMember: countryData.unMember,
-          continents: countryData.continents,
-          region: countryData.region,
-          subregion: countryData.subregion,
-          area: countryData.area,
           population: populationData.value,
           populationHistory: populationData.history,
           gdp: gdpData.value,
@@ -98,7 +93,6 @@ class CountryService {
           gdpPerCapita: gdpPerCapitaData.value,
           gdpPerCapitaHistory: gdpPerCapitaData.history,
         };
-        return country;
       })
     );
   }
@@ -124,7 +118,7 @@ class CountryService {
   };
 
   async getCountryByCode(code: string): Promise<Country | null> {
-    const countries = await this.getAllCountries();
+    const countries = await this.getCountries();
     return countries.find((country) => country.cca2 === code) || null;
   }
 
@@ -140,7 +134,7 @@ class CountryService {
     sortOrder: "asc" | "desc" = "asc"
   ): Promise<Country[]> {
     if (!countries) {
-      countries = await this.getAllCountries();
+      countries = await this.getCountries();
     }
     return countries.sort((a, b) => {
       const valueA = this.getSortValue(a, sortBy);
@@ -158,7 +152,7 @@ class CountryService {
   }
 
   async getFilteredCountries(options: FilterOptions): Promise<Country[]> {
-    const countries = await this.getAllCountries();
+    const countries = await this.getCountries();
     return countries.filter((country) =>
       Object.entries(options).every(([key, value]) => {
         if (typeof value === "object") {
@@ -181,14 +175,14 @@ class CountryService {
   async getMin<T extends keyof Country>(
     property: T
   ): Promise<number | undefined> {
-    const countries = await this.getAllCountries();
+    const countries = await this.getCountries();
     return Math.min(...countries.map((country) => Number(country[property])));
   }
 
   async getMax<T extends keyof Country>(
     property: T
   ): Promise<number | undefined> {
-    const countries = await this.getAllCountries();
+    const countries = await this.getCountries();
     return Math.max(...countries.map((country) => Number(country[property])));
   }
 }
