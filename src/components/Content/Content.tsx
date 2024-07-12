@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Content.module.css";
 import { Country, countryService } from "@api/CountryService";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 interface ContentProps {
   selectedCountry: string;

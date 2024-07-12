@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { Header, Sidebar, Content } from "./components";
 import "./styles/App.css";
 import "./styles/Mui.css";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function App() {
   const { countryCode } = useParams();
@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet defaultTitle="NationHub" titleTemplate="%s - NationHub">
         <meta
           name="description"
@@ -40,7 +40,7 @@ function App() {
         setSelectedCountry={handleSetSelectedCountry}
       />
       <Content selectedCountry={selectedCountry} />
-    </>
+    </HelmetProvider>
   );
 }
 
