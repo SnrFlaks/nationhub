@@ -11,7 +11,7 @@ export interface Country {
   independent: boolean;
   unMember: boolean;
   continents: string[];
-  area: { min?: number; max?: number };
+  area: number;
   population: number | null;
   populationHistory: { year: number; value: number }[] | null;
   gdp: number | null;

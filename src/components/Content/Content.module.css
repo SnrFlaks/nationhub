@@ -26,9 +26,49 @@
   color: var(--text-secondary);
 }
 
+.countryInfoContainer {
+  display: flex;
+  margin-top: 8px;
+}
+
 .countryExtract {
+  margin: 0 8px 0 0;
   font-size: 1.1em;
   color: var(--text-primary);
+}
+
+.countryDetailsTable {
+  border: 1px solid var(--border-primary);
+  font-size: 1.1em;
+  border-radius: 16px;
+  border-spacing: 0px;
+  overflow: hidden;
+}
+
+.countryDetailsTable th,
+.countryDetailsTable td {
+  border-left: 1px solid var(--border-primary);
+  border-top: 1px solid var(--border-primary);
+  padding: 0.5em;
+}
+
+.countryDetailsTable th {
+  background-color: var(--bkg-secondary);
+  font-weight: 500;
+  text-align: left;
+}
+
+.countryDetailsTable td {
+  background-color: var(--bkg-tertiary);
+}
+
+.countryDetailsTable tr:first-child * {
+  border-top: none;
+}
+
+.countryDetailsTable td:first-child,
+.countryDetailsTable th:first-child {
+  border-left: none;
 }
 
 @media (max-width: 640px) {
