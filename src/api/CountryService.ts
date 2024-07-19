@@ -1,9 +1,7 @@
 import axios from "axios";
 
 export interface Country {
-  name: {
-    common: string;
-  };
+  name: string;
   description: string;
   extract: string;
   flagSvg: string;
@@ -12,20 +10,23 @@ export interface Country {
   unMember: boolean;
   continents: string[];
   area: number;
-  population: number | null;
-  populationHistory: { year: number; value: number }[] | null;
-  gdp: number | null;
-  gdpHistory: { year: number; value: number }[] | null;
-  gdpPerCapita: number | null;
-  gdpPerCapitaHistory: { year: number; value: number }[] | null;
+  population: WorldBankData;
+  gdp: WorldBankData;
+  gdpPCAP: WorldBankData;
+}
+
+export interface WorldBankData {
+  value: number | null;
+  history: { year: number; value: number | null }[];
 }
 
 export interface FilterOptions {
   independent?: boolean;
   unMember?: boolean;
+  area?: { min: number; max: number };
   population?: { min: number; max: number };
   gdp?: { min: number; max: number };
-  gdpPerCapita?: { min: number; max: number };
+  gdpPCAP?: { min: number; max: number };
 }
 
 class CountryService {
@@ -56,7 +57,13 @@ class CountryService {
     const response = await axios.get(
       "https://restcountries.com/v3.1/all?fields=name,cca2,independent,unMember,continents,area"
     );
-    return response.data;
+    const countries = response.data.map(
+      (country: { name: { common: string } }) => ({
+        ...country,
+        name: country.name.common,
+      })
+    );
+    return countries;
   }
 
   private async fetchDetailCountry(countries: Country[]): Promise<Country[]> {
@@ -68,9 +75,9 @@ class CountryService {
     return await Promise.all(
       countries.map(async (country) => {
         const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${
-          specialCases[country.cca2] || country.name.common
+          specialCases[country.cca2] || country.name
         }`;
-        const [wikiData, populationData, gdpData, gdpPerCapitaData, flagSvg] =
+        const [wikiData, populationData, gdpData, gdpPCAPData, flagSvg] =
           await Promise.all([
             axios.get(wikiUrl),
             this.fetchWorldBankData(country.cca2, "SP.POP.TOTL"),
@@ -85,12 +92,9 @@ class CountryService {
           description: wikiData.data.description,
           extract: wikiData.data.extract,
           flagSvg: flagSvg.data,
-          population: populationData.value,
-          populationHistory: populationData.history,
-          gdp: gdpData.value,
-          gdpHistory: gdpData.history,
-          gdpPerCapita: gdpPerCapitaData.value,
-          gdpPerCapitaHistory: gdpPerCapitaData.history,
+          population: populationData,
+          gdp: gdpData,
+          gdpPCAP: gdpPCAPData,
         };
       })
     );
@@ -108,7 +112,9 @@ class CountryService {
     );
     const data = response.data[1] || [];
     return {
-      value: data.length > 0 ? data[0].value : null,
+      value:
+        data.find((item: { value: number | null }) => item.value !== null)
+          ?.value ?? null,
       history: data.map(({ date, value }: { date: number; value: number }) => ({
         year: date,
         value: value,
@@ -121,10 +127,11 @@ class CountryService {
     return countries.find((country) => country.cca2 === code) || null;
   }
 
-  getSortValue = (country: Country, sortBy: keyof Country): string | number => {
-    return sortBy === "name"
-      ? country.name.common
-      : (country[sortBy] as string | number);
+  getSortValue = (obj: Country, key: keyof Country) => {
+    if (typeof obj[key] === "object" && "value" in obj[key]) {
+      return (obj[key as keyof Country] as WorldBankData).value;
+    }
+    return obj[key];
   };
 
   async getSortedCountries(
@@ -155,9 +162,11 @@ class CountryService {
     return countries.filter((country) =>
       Object.entries(options).every(([key, value]) => {
         if (typeof value === "object") {
-          const countryValue = country[key as keyof Country];
+          const countryValue =
+            (country[key as keyof Country] as WorldBankData)?.value ??
+            country[key as keyof Country];
+          const { min, max } = value as { min?: number; max?: number };
           if (typeof countryValue === "number") {
-            const { min, max } = value as { min?: number; max?: number };
             return (
               (min === undefined || countryValue >= min) &&
               (max === undefined || countryValue <= max)
@@ -171,18 +180,33 @@ class CountryService {
     );
   }
 
+  async getCountriesValues<T extends keyof Country>(
+    property: T
+  ): Promise<number[]> {
+    const countries = await this.getCountries();
+    return countries
+      .map((country) => {
+        const value = country[property];
+        if (typeof value === "object" && "value" in value) {
+          return (value as WorldBankData).value;
+        }
+        return Number(value);
+      })
+      .filter((value): value is number => !isNaN(Number(value)));
+  }
+
   async getMin<T extends keyof Country>(
     property: T
   ): Promise<number | undefined> {
-    const countries = await this.getCountries();
-    return Math.min(...countries.map((country) => Number(country[property])));
+    const values = await this.getCountriesValues(property);
+    return Math.min(...values);
   }
 
   async getMax<T extends keyof Country>(
     property: T
   ): Promise<number | undefined> {
-    const countries = await this.getCountries();
-    return Math.max(...countries.map((country) => Number(country[property])));
+    const values = await this.getCountriesValues(property);
+    return Math.max(...values);
   }
 }
 

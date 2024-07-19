@@ -25,8 +25,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
   const [populationRange, minMaxPopulationRange, setPopulationRange] =
     useRange("population");
   const [gdpRange, minMaxGdpRange, setGdpRange] = useRange("gdp");
-  const [gdpPerCapitaRange, minMaxGdpPerCapitaRange, setGdpPerCapitaRange] =
-    useRange("gdpPerCapita");
+  const [gdpPCAPRange, minMaxGdpPCAPRange, setGdpPCAPRange] = useRange("gdpPCAP");
 
   useEffect(() => {
     setLocalFilterOptions((prevOptions) => ({
@@ -34,9 +33,9 @@ const FilterModal: React.FC<FilterModalProps> = ({
       area: { min: areaRange[0], max: areaRange[1] },
       population: { min: populationRange[0], max: populationRange[1] },
       gdp: { min: gdpRange[0], max: gdpRange[1] },
-      gdpPerCapita: { min: gdpPerCapitaRange[0], max: gdpPerCapitaRange[1] },
+      gdpPCAP: { min: gdpPCAPRange[0], max: gdpPCAPRange[1] },
     }));
-  }, [populationRange, areaRange, gdpRange, gdpPerCapitaRange]);
+  }, [populationRange, areaRange, gdpRange, gdpPCAPRange]);
 
   const applyFilters = () => {
     setFilterOptions(localFilterOptions);
@@ -106,9 +105,9 @@ const FilterModal: React.FC<FilterModalProps> = ({
             label="GDP"
           />
           <Range
-            range={gdpPerCapitaRange}
-            minMaxRange={minMaxGdpPerCapitaRange}
-            setRange={setGdpPerCapitaRange}
+            range={gdpPCAPRange}
+            minMaxRange={minMaxGdpPCAPRange}
+            setRange={setGdpPCAPRange}
             className={styles.rangeOption}
             label="GDP per capita"
           />

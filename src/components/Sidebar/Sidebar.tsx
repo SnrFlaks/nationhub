@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         />
       </div>
       <div className={styles.sidebarContent}>
-        <table>
+        <table className={styles.contentTable}>
           <tbody>
             {countries.map(({ cca2, name, flagSvg }) => (
               <tr
@@ -91,11 +91,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <td className={styles.countryFlag}>
                   <img
                     src={`data:image/svg+xml,${encodeURIComponent(flagSvg)}`}
-                    alt={`Flag of ${name.common}`}
+                    alt={`Flag of ${name}`}
                     className={`${styles.countryFlag} img`}
                   />
                 </td>
-                <td className={styles.countryName}>{name.common}</td>
+                <td className={styles.countryName}>{name}</td>
               </tr>
             ))}
           </tbody>

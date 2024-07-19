@@ -1,0 +1,17 @@
+.rowInfo {
+  display: flex;
+  align-items: center;
+}
+
+.rowInfo span {
+  padding-right: 4px;
+  font-size: 1.2em;
+}
+
+.increaseIcon {
+  color: var(--green);
+}
+
+.decreaseIcon {
+  color: var(--red);
+}
