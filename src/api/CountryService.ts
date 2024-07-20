@@ -128,11 +128,13 @@ class CountryService {
   }
 
   getSortValue = (obj: Country, key: keyof Country) => {
-    if (typeof obj[key] === "object" && "value" in obj[key]) {
-      return (obj[key as keyof Country] as WorldBankData).value;
+    const value = obj[key];
+    if (typeof value === "object" && "value" in value) {
+      return (value as WorldBankData).value;
     }
-    return obj[key];
+    return value;
   };
+
 
   async getSortedCountries(
     countries: Country[] | undefined,

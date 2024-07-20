@@ -1,19 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material";
+import { CountryInfo, Main } from "./pages";
 import App from "./App.tsx";
 import "./styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
-      <Router>
+      <BrowserRouter>
         <Routes>
-          <Route path="/:countryCode" element={<App />} />
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<App />}>
+            <Route index element={<Main />} />
+            <Route path=":countryCode" element={<CountryInfo />} />
+          </Route>
         </Routes>
-      </Router>
+      </BrowserRouter>
     </StyledEngineProvider>
   </React.StrictMode>
 );

@@ -1,0 +1,48 @@
+.contentContainer {
+  padding: 72px 20vw 0;
+}
+
+.countryHeader {
+  display: flex;
+  align-items: center;
+}
+
+.countryName {
+  margin: 0 0 0 4px;
+  padding: 0;
+  font-size: 2.25em;
+  color: var(--text-primary);
+}
+
+.countryFlag {
+  height: 1.9em;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.countryDescription {
+  margin: -0.5em 0 0 0;
+  font-size: 1em;
+  color: var(--text-secondary);
+}
+
+.countryInfoContainer {
+  margin-top: 8px;
+  align-items: center;
+}
+
+.countryExtract {
+  margin: 0 8px 0 0;
+  font-size: 1.1em;
+  color: var(--text-primary);
+}
+
+.countryDetails {
+  float: right;
+}
+
+@media (max-width: 640px) {
+  .contentContainer {
+    padding: 56px 16px 0;
+  }
+}

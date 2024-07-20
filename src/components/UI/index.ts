@@ -4,3 +4,4 @@ export { default as LogoTitle } from "./LogoTitle/LogoTitle";
 export { default as Modal } from "./Modal/Modal";
 export { default as RangeSlider } from "./RangeSlider/RangeSlider";
 export { default as Select } from "./Select/Select";
+export { default as Table } from "./Table/Table";

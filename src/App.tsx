@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Header, Sidebar, Content } from "./components";
+import { useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Header, Sidebar } from "./components";
 import "./styles/App.css";
 import "./styles/Mui.css";
-import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function App() {
   const { countryCode } = useParams();
   const navigate = useNavigate();
   const [isSidebarActive, setIsSidebarActive] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
 
-  useEffect(() => {
-    if (countryCode) {
-      setSelectedCountry(countryCode.toUpperCase());
-    } else {
-      setSelectedCountry("");
-    }
-  }, [countryCode]);
-
-  const handleSetSelectedCountry = (countryCode: string) => {
-    setSelectedCountry(countryCode);
+  const handleSelect = (countryCode: string) => {
     navigate(`/${countryCode.toLowerCase()}`);
   };
 
@@ -36,10 +26,10 @@ function App() {
       <Sidebar
         isActive={isSidebarActive}
         setActive={setIsSidebarActive}
-        selectedCountry={selectedCountry}
-        setSelectedCountry={handleSetSelectedCountry}
+        selectedCountry={countryCode?.toUpperCase() || ""}
+        setSelectedCountry={handleSelect}
       />
-      <Content selectedCountry={selectedCountry} />
+      <Outlet />
     </HelmetProvider>
   );
 }
