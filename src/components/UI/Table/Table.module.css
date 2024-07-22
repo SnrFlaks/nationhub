@@ -1,6 +1,5 @@
 .table {
   height: fit-content;
-  margin-left: 8px;
   border: 1px solid var(--border-primary);
   font-size: 1.1em;
   border-radius: 8px;

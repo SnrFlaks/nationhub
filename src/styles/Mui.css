@@ -65,3 +65,9 @@
 .MuiSlider-thumb.Mui-active:hover {
   box-shadow: 0px 0px 0px 10px color-mix(in srgb, var(--text-primary), transparent 96%);
 }
+
+@media (max-width: 640px) {
+  .MuiIcon-root {
+    font-size: 1.2em;
+  }
+}

@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
+  background: var(--bkg-primary);
   box-sizing: border-box;
   height: 56px;
 }

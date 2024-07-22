@@ -21,7 +21,7 @@
 
 .sidebarContent {
   display: block;
-  height: calc(100vh - 56px - 48px);
+  height: calc(100vh - 56px - 50px);
   overflow-x: hidden;
   padding-right: 8px;
 }
@@ -41,6 +41,7 @@
 
 .contentTable {
   width: 100%;
+  padding-bottom: 8px;
 }
 
 .contentItem {
@@ -84,6 +85,7 @@
 
 .sortDropdown {
   display: flex;
+  align-items: center;
   flex-grow: 1;
   border-radius: 32px;
   border: 1px solid var(--border-primary);
@@ -92,4 +94,19 @@
 
 .filterBtn {
   flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .sidebarContainer {
+    width: calc(100% - 16px);
+  }
+  .countryFlag {
+    width: 42px;
+  }
+  .countryName {
+    font-size: 1.2em;
+  }
+  .sidebarSettings {
+    font-size: 1.25em;
+  }
 }

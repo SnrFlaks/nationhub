@@ -1,0 +1,54 @@
+.mainContainer {
+  padding: 72px 20vw;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.25em;
+  color: var(--text-primary);
+}
+
+.hub {
+  color: var(--green);
+}
+
+.mainContent {
+  margin-top: 32px;
+  overflow: auto;
+}
+
+.contentTable th {
+  white-space: nowrap;
+}
+
+.countryName {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  color: var(--text-primary);
+  padding-left: 8px;
+  cursor: pointer;
+}
+.countryName:hover {
+  font-weight: 500;
+}
+
+.countryFlag {
+  width: 36px;
+  padding: 2px;
+  margin-right: 8px;
+  border-radius: 5px;
+  align-items: center;
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .mainContainer {
+    padding: 56px 16px 0;
+  }
+}
