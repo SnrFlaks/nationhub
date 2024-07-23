@@ -75,14 +75,14 @@ const Main: React.FC<MainProps> = () => {
                       />
                       {randomCountry.name}
                     </div>{" "}
+                    <div className={styles.randomCountryExtract}>
+                      {`${randomCountry.extract.substring(0, 150)}...`}
+                    </div>
                     <Button
                       icon="open_in_new"
                       className={styles.openBtn}
                       onClick={() => handleCountryClick(randomCountry.cca2)}
                     />
-                    <div className={styles.randomCountryExtract}>
-                      {`${randomCountry.extract.substring(0, 150)}...`}
-                    </div>
                   </div>
                 </td>
               </tr>
