@@ -2,17 +2,13 @@ import React from "react";
 import styles from "./Table.module.css";
 
 interface TableProps {
-  thead?: React.ReactNode;
-  tbody: React.ReactNode;
+  children: React.ReactNode;
   className?: string;
 }
 
-const Table: React.FC<TableProps> = ({ thead, tbody, className }) => {
+const Table: React.FC<TableProps> = ({ className, children }) => {
   return (
-    <table className={`${styles.table} ${className ? className : ""}`}>
-      {thead && <thead>{thead}</thead>}
-      <tbody>{tbody}</tbody>
-    </table>
+    <table className={`${styles.table} ${className ? className : ""}`}>{children}</table>
   );
 };
 

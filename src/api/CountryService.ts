@@ -135,9 +135,8 @@ class CountryService {
     return value;
   };
 
-
   async getSortedCountries(
-    countries: Country[] | undefined,
+    countries: Country[] | null,
     sortBy: keyof Country,
     sortOrder: "asc" | "desc" = "asc"
   ): Promise<Country[]> {
@@ -147,6 +146,8 @@ class CountryService {
     return countries.sort((a, b) => {
       const valueA = this.getSortValue(a, sortBy);
       const valueB = this.getSortValue(b, sortBy);
+      if (valueA === null) return 1;
+      if (valueB === null) return -1;
       if (typeof valueA === "string" && typeof valueB === "string") {
         return sortOrder === "asc"
           ? valueA.localeCompare(valueB)

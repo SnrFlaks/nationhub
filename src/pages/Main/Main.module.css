@@ -10,7 +10,6 @@
 .title {
   margin: 0;
   font-size: 2.25em;
-  color: var(--text-primary);
 }
 
 .hub {
@@ -29,6 +28,7 @@
 .randomCountry th {
   display: flex;
   align-items: center;
+  font-size: 1.2em;
   justify-content: space-between;
   padding: 4px 4px 4px 0.5em;
 }
@@ -49,14 +49,17 @@
 .randomCountryName {
   display: flex;
   align-items: center;
-  font-weight: 450;
-  color: var(--text-primary);
+  padding-bottom: 8px;
+  font-size: 1.35em;
+}
+
+.randomCountryName .countryFlag {
+  width: 42px;
 }
 
 .randomCountryExtract {
   padding-right: 0.5em;
-  font-size: 0.9em;
-  color: var(--text-primary);
+  font-weight: 300;
 }
 
 .openBtn {
@@ -73,14 +76,33 @@ h2 {
 }
 
 .contentTable th {
+  padding: 6px;
   white-space: nowrap;
+}
+
+.contentTable td {
+  padding: 6px;
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+}
+
+.arrowIcon {
+  margin-left: auto;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .countryName {
   display: flex;
   align-items: center;
   font-size: 1em;
-  color: var(--text-primary);
   padding-left: 8px;
   cursor: pointer;
 }
@@ -95,6 +117,11 @@ h2 {
   border-radius: 5px;
   align-items: center;
   user-select: none;
+}
+
+.valueContainer {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 640px) {

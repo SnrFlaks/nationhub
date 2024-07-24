@@ -5,7 +5,6 @@
 }
 .logoTitle::before {
   content: "Nation";
-  color: var(--text-primary);
 }
 .logoTitle::after {
   content: "Hub";

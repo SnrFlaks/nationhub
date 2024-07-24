@@ -44,6 +44,9 @@ html.light {
 
   --scroll-thumb: var(--gray-500);
   --scroll-thumb-hover: var(--gray-600);
+
+  --table-primary: var(--gray-300);
+  --table-secondary: var(--gray-200);
 }
 
 html.dark {
@@ -59,6 +62,9 @@ html.dark {
 
   --scroll-thumb: var(--gray-600);
   --scroll-thumb-hover: var(--gray-500);
+
+  --table-primary: var(--gray-900);
+  --table-secondary: var(--gray-800);
 }
 
 body {

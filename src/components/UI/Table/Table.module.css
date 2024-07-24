@@ -16,13 +16,13 @@
 }
 
 .table th {
-  background-color: var(--bkg-secondary);
+  background-color: var(--table-primary);
   font-weight: 500;
   text-align: left;
 }
 
 .table td {
-  background-color: var(--bkg-tertiary);
+  background-color: var(--table-secondary);
 }
 
 .table tr:first-child * {
