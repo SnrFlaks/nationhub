@@ -27,6 +27,10 @@ const CountryInfo = () => {
         <Helmet>
           <title>{country.name}</title>
           <meta name="description" content={country.extract} />
+          <link
+            rel="canonical"
+            href={`https://nationhub.netlify.app/${country.cca2.toLowerCase()}`}
+          />
         </Helmet>
       )}
       <div className={styles.contentContainer}>

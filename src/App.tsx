@@ -21,6 +21,7 @@ function App() {
           name="description"
           content="NationHub is a comprehensive platform providing detailed information about countries and regions."
         />
+        <link rel="canonical" href="https://nationhub.netlify.app/" />
       </Helmet>
       <Header setSidebarActive={setIsSidebarActive} />
       <Sidebar
