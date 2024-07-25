@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Country, countryService } from "@api/CountryService";
-import { Input } from "@components/UI";
+import { Button, Input } from "@components/UI";
 import mergeClasses from "@utils/mergeClasses";
 import styles from "./Search.module.css";
 
@@ -57,19 +57,29 @@ const Search: React.FC<SearchProps> = ({ isSearchMode }) => {
   };
 
   return (
-    <div className={styles.searchContainer}>
-      <Input
-        type="text"
+    <>
+      <div
+        className={styles.inputContainer}
         style={isSearchMode ? { display: "flex" } : undefined}
-        className={styles.searchInput}
-        placeholder="Search..."
-        aria-label="Search for a country"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onFocus={() => setInputFocused(true)}
-        onBlur={() => setInputFocused(false)}
-        ref={inputRef}
-      />
+      >
+        <Input
+          type="text"
+          className={styles.input}
+          placeholder="Search..."
+          aria-label="Search for a country"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
+          ref={inputRef}
+        />
+        <Button
+          icon="close"
+          className={styles.closeIcon}
+          aria-label="Clear search input"
+          onClick={() => setSearchQuery("")}
+        />
+      </div>
       <div
         className={mergeClasses(
           styles.resultsPanel,
@@ -78,17 +88,26 @@ const Search: React.FC<SearchProps> = ({ isSearchMode }) => {
         )}
         onMouseDown={(e) => e.preventDefault()}
       >
-        {filteredResults.map((country) => (
-          <div
-            key={country.cca2}
-            className={styles.resultItem}
-            onClick={() => handleCountryClick(country.cca2)}
-          >
-            {country.name}
-          </div>
-        ))}
+        <ul className={styles.resultsList}>
+          {filteredResults.map((country) => (
+            <li
+              key={country.cca2}
+              className={styles.resultItem}
+              role="option"
+              aria-label={`Select ${country.name}`}
+              onClick={() => handleCountryClick(country.cca2)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleCountryClick(country.cca2);
+                }
+              }}
+            >
+              {country.name}
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </>
   );
 };
 

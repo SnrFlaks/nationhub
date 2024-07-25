@@ -40,13 +40,15 @@ const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
         <LogoTitle />
       </div>
       <div className={styles.center}>
-        <Button
-          icon="arrow_back"
-          className={styles.backBtn}
-          aria-label="Close search"
-          onClick={toggleSearch}
-        />
-        <Search isSearchMode={isSearchMode} />
+        <div className={styles.searchContainer}>
+          <Button
+            icon="arrow_back"
+            className={styles.backBtn}
+            aria-label="Close search"
+            onClick={toggleSearch}
+          />
+          <Search isSearchMode={isSearchMode} />
+        </div>
         <Button
           icon="search"
           className={styles.searchBtn}
