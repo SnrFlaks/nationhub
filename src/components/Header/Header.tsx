@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, LogoTitle } from "@components/UI";
+import Search from "@components/Search/Search";
 import useTheme from "@hooks/useTheme";
 import mergeClasses from "@utils/mergeClasses";
 import styles from "./Header.module.css";
-import Input from "@components/UI/Input/Input";
 
 interface HeaderProps {
   setSidebarActive: (active: boolean) => void;
@@ -46,13 +46,7 @@ const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
           aria-label="Close search"
           onClick={toggleSearch}
         />
-        <Input
-          type="text"
-          className={styles.searchInput}
-          placeholder="Search..."
-          aria-label="Search for a country"
-          ref={(input) => isSearchMode && input && input.focus()}
-        />
+        <Search isSearchMode={isSearchMode} />
         <Button
           icon="search"
           className={styles.searchBtn}

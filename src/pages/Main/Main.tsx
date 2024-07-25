@@ -75,6 +75,7 @@ const Main = () => {
                   <Button
                     icon="replay"
                     className={styles.repeatBtn}
+                    aria-label="Repeat random country"
                     onClick={handleRepeatClick}
                   />
                 </th>
@@ -95,11 +96,12 @@ const Main = () => {
                       {randomCountry.name}
                     </div>
                     <div className={styles.randomCountryExtract}>
-                      {`${randomCountry.extract.substring(0, 150)}...`}
+                      {`${randomCountry.extract.substring(0, 250)}...`}
                     </div>
                     <Button
                       icon="open_in_new"
                       className={styles.openBtn}
+                      aria-label="Open Country Page"
                       onClick={() => handleCountryClick(randomCountry.cca2)}
                     />
                   </div>
@@ -111,102 +113,135 @@ const Main = () => {
         {countries.length > 0 && (
           <>
             <h2>Country Statistics</h2>
-            <Table className={styles.contentTable}>
-              <thead>
-                <tr>
-                  <th>
-                    <div
-                      className={styles.nameContainer}
-                      onClick={() => handleSort("name")}
-                    >
-                      Country
-                      <Icon
-                        className={mergeClasses(
-                          styles.arrowIcon,
-                          sortOption !== "name",
-                          styles.hidden
-                        )}
+            <div className={styles.tableContainer}>
+              <Table className={styles.contentTable}>
+                <thead>
+                  <tr>
+                    <th>
+                      <div
+                        className={styles.nameContainer}
+                        onClick={() => handleSort("name")}
+                        aria-label={`Sort by Country name${
+                          sortOption === "name"
+                            ? sortOrder === "asc"
+                              ? " ascending"
+                              : " descending"
+                            : ""
+                        }`}
                       >
-                        {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
-                      </Icon>
-                    </div>
-                  </th>
-                  <th>
-                    <div
-                      className={styles.nameContainer}
-                      onClick={() => handleSort("population")}
-                    >
-                      <Icon>person</Icon>Population
-                      <Icon
-                        className={mergeClasses(
-                          styles.arrowIcon,
-                          sortOption !== "population",
-                          styles.hidden
-                        )}
+                        Country
+                        <Icon
+                          className={mergeClasses(
+                            styles.arrowIcon,
+                            sortOption !== "name",
+                            styles.hidden
+                          )}
+                        >
+                          {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
+                        </Icon>
+                      </div>
+                    </th>
+                    <th>
+                      <div
+                        className={styles.nameContainer}
+                        onClick={() => handleSort("population")}
+                        aria-label={`Sort by Population${
+                          sortOption === "population"
+                            ? sortOrder === "asc"
+                              ? " ascending"
+                              : " descending"
+                            : ""
+                        }`}
                       >
-                        {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
-                      </Icon>
-                    </div>
-                  </th>
-                  <th>
-                    <div
-                      className={styles.nameContainer}
-                      onClick={() => handleSort("gdp")}
-                    >
-                      <Icon>attach_money</Icon>GDP
-                      <Icon
-                        className={mergeClasses(
-                          styles.arrowIcon,
-                          sortOption !== "gdp",
-                          styles.hidden
-                        )}
+                        <Icon>person</Icon>Population
+                        <Icon
+                          className={mergeClasses(
+                            styles.arrowIcon,
+                            sortOption !== "population",
+                            styles.hidden
+                          )}
+                        >
+                          {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
+                        </Icon>
+                      </div>
+                    </th>
+                    <th>
+                      <div
+                        className={styles.nameContainer}
+                        onClick={() => handleSort("gdp")}
+                        aria-label={`Sort by GDP${
+                          sortOption === "gdp"
+                            ? sortOrder === "asc"
+                              ? " ascending"
+                              : " descending"
+                            : ""
+                        }`}
                       >
-                        {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
-                      </Icon>
-                    </div>
-                  </th>
-                  <th>
-                    <div
-                      className={styles.nameContainer}
-                      onClick={() => handleSort("gdpPCAP")}
-                    >
-                      <Icon>attach_money</Icon>GDP Per Capita
-                      <Icon
-                        className={mergeClasses(
-                          styles.arrowIcon,
-                          sortOption !== "gdpPCAP",
-                          styles.hidden
-                        )}
+                        <Icon>attach_money</Icon>GDP
+                        <Icon
+                          className={mergeClasses(
+                            styles.arrowIcon,
+                            sortOption !== "gdp",
+                            styles.hidden
+                          )}
+                        >
+                          {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
+                        </Icon>
+                      </div>
+                    </th>
+                    <th>
+                      <div
+                        className={styles.nameContainer}
+                        onClick={() => handleSort("gdpPCAP")}
+                        aria-label={`Sort by GDP Per Capita${
+                          sortOption === "gdpPCAP"
+                            ? sortOrder === "asc"
+                              ? " ascending"
+                              : " descending"
+                            : ""
+                        }`}
                       >
-                        {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
-                      </Icon>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {countries.map(({ cca2, name, flagSvg, population, gdp, gdpPCAP }) => (
-                  <tr key={cca2}>
-                    <td
-                      className={styles.countryName}
-                      onClick={() => handleCountryClick(cca2)}
-                    >
-                      <img
-                        src={`data:image/svg+xml,${encodeURIComponent(flagSvg)}`}
-                        alt={`Flag of ${name}`}
-                        className={styles.countryFlag}
-                      />
-                      {name}
-                    </td>
-                    <td>
-                      {population.value !== null ? Math.round(population.value) : "N/A"}
-                    </td>
-                    <td>{gdp.value !== null ? Math.round(gdp.value) : "N/A"}</td>
-                    <td>{gdpPCAP.value !== null ? Math.round(gdpPCAP.value) : "N/A"}</td>
+                        <Icon>attach_money</Icon>GDP Per Capita
+                        <Icon
+                          className={mergeClasses(
+                            styles.arrowIcon,
+                            sortOption !== "gdpPCAP",
+                            styles.hidden
+                          )}
+                        >
+                          {sortOrder === "asc" ? "arrow_upward" : "arrow_downward"}
+                        </Icon>
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {countries.map(({ cca2, name, flagSvg, population, gdp, gdpPCAP }) => (
+                    <tr key={cca2}>
+                      <td
+                        className={styles.countryName}
+                        aria-label="Open Country Page"
+                        onClick={() => handleCountryClick(cca2)}
+                      >
+                        <img
+                          src={`data:image/svg+xml,${encodeURIComponent(flagSvg)}`}
+                          alt={`Flag of ${name}`}
+                          className={styles.countryFlag}
+                        />
+                        {name}
+                      </td>
+                      <td>
+                        {population.value !== null ? Math.round(population.value) : "N/A"}
+                      </td>
+                      <td>{gdp.value !== null ? Math.round(gdp.value) : "N/A"}</td>
+                      <td>
+                        {gdpPCAP.value !== null ? Math.round(gdpPCAP.value) : "N/A"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
           </>
         )}
       </div>

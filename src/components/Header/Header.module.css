@@ -28,11 +28,6 @@
   justify-content: flex-end;
 }
 
-.searchInput {
-  font-size: 1em;
-  font-weight: 500;
-}
-
 .backBtn,
 .searchBtn {
   display: none;
@@ -42,10 +37,6 @@
   .center {
     padding: 0;
     justify-content: flex-end;
-  }
-
-  .searchInput {
-    display: none;
   }
 
   .searchBtn {
@@ -62,8 +53,7 @@
       flex: 0 1 640px;
     }
 
-    .backBtn,
-    .searchInput {
+    .backBtn {
       display: flex;
     }
 

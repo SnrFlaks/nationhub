@@ -18,7 +18,6 @@
 
 .mainContent {
   margin-top: 32px;
-  overflow: auto;
 }
 
 .randomCountry {
@@ -69,6 +68,10 @@
 h2 {
   margin: 16px 0;
   font-size: 1.65em;
+}
+
+.tableContainer {
+  overflow-x: auto;
 }
 
 .contentTable {
