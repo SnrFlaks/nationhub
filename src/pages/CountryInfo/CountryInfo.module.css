@@ -44,16 +44,29 @@
   .contentContainer {
     padding: 56px 16px 0;
   }
+
+  .countryName {
+    font-size: 1.8em;
+  }
+
   .countryInfoContainer {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
+
+  .countryInfoTableContainer {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+  }
+
   .countryInfoTable {
-    float: none;
+    width: 100%;  
     margin-left: 0;
     font-size: 1.15em;
   }
+
   .countryExtract {
     order: -1;
     text-align: justify;
