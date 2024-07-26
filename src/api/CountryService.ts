@@ -31,19 +31,22 @@ export interface FilterOptions {
 
 class CountryService {
   private cacheKey = "countries";
+  private cachedCountries: Country[] = [];
   private fetchPromise: Promise<Country[]> | null = null;
 
   async getCountries(): Promise<Country[]> {
-    const cachedCountries = sessionStorage.getItem(this.cacheKey);
-    if (cachedCountries) {
-      return JSON.parse(cachedCountries);
-    }
-    if (this.fetchPromise) {
-      return this.fetchPromise;
+    if (this.fetchPromise) return this.fetchPromise;
+    if (this.cachedCountries.length > 0) return this.cachedCountries;
+    const savedCountries = sessionStorage.getItem(this.cacheKey);
+    if (savedCountries) {
+      const parsedCountries = JSON.parse(savedCountries);
+      this.cachedCountries = parsedCountries;
+      return parsedCountries;
     }
     this.fetchPromise = this.fetchCountries();
     const countries = await this.fetchPromise;
     sessionStorage.setItem(this.cacheKey, JSON.stringify(countries));
+    this.cachedCountries = countries;
     this.fetchPromise = null;
     return countries;
   }

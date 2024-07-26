@@ -28,11 +28,8 @@ const Main = () => {
 
   useEffect(() => {
     const fetchRandomCountry = async () => {
-      const filteredCountries = await countryService.getFilteredCountries({
-        independent: true,
-        unMember: true,
-      });
-      setRandomCountry(getRandomCountry(filteredCountries));
+      const countries = await countryService.getCountries();
+      setRandomCountry(getRandomCountry(countries));
     };
 
     fetchRandomCountry();

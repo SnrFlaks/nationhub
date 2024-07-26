@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, LogoTitle, Select } from "@components/UI";
 import { MenuItem, SelectChangeEvent } from "@mui/material";
-import { Country, countryService } from "@api/CountryService";
+import { Country, countryService, FilterOptions } from "@api/CountryService";
 import mergeClasses from "@utils/mergeClasses";
 import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
   isActive: boolean;
   setActive: (active: boolean) => void;
-  filteredCountries: Country[];
+  filterOptions: FilterOptions;
   selectedCountry: string;
   setSelectedCountry: (selected: string) => void;
   setFilterActive: (active: boolean) => void;
@@ -17,7 +17,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({
   isActive,
   setActive,
-  filteredCountries,
+  filterOptions,
   selectedCountry,
   setSelectedCountry,
   setFilterActive,
@@ -28,6 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   useEffect(() => {
     const loadCountries = async () => {
+      const filteredCountries = await countryService.getFilteredCountries(filterOptions);
       const sortedCountries = await countryService.getSortedCountries(
         filteredCountries,
         sortOption as keyof Country | "name",
@@ -37,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     };
 
     loadCountries();
-  }, [filteredCountries, sortOption, sortOrder]);
+  }, [filterOptions, sortOption, sortOrder]);
 
   const handleSortChange = async (event: SelectChangeEvent<string>) => {
     setSortOption(event.target.value);

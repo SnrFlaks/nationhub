@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Country, countryService, FilterOptions } from "@api/CountryService";
+import { FilterOptions } from "@api/CountryService";
 import { FilterModal, Header, SettingsModal, Sidebar } from "./components";
 import "./styles/App.css";
 import "./styles/Mui.css";
@@ -10,19 +10,12 @@ function App() {
   const navigate = useNavigate();
   const { countryCode } = useParams();
   const [isSidebarActive, setIsSidebarActive] = useState(false);
-  const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
-  const [filterOptions, setFilterOptions] = useState<FilterOptions>({});
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+    independent: true,
+    unMember: true,
+  });
   const [isFilterActive, setIsFilterActive] = useState<boolean>(false);
   const [isSettingsActive, setIsSettingsActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    const loadCountries = async () => {
-      const filteredCountries = await countryService.getFilteredCountries(filterOptions);
-      setFilteredCountries(filteredCountries);
-    };
-
-    loadCountries();
-  }, [filterOptions]);
 
   const handleSelect = (countryCode: string) => {
     navigate(`/${countryCode.toLowerCase()}`);
@@ -44,7 +37,7 @@ function App() {
       <Sidebar
         isActive={isSidebarActive}
         setActive={setIsSidebarActive}
-        filteredCountries={filteredCountries}
+        filterOptions={filterOptions}
         selectedCountry={countryCode?.toUpperCase() || ""}
         setSelectedCountry={handleSelect}
         setFilterActive={setIsFilterActive}
