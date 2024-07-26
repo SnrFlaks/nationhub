@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { FilterOptions } from "@api/CountryService";
-import { FilterModal, Header, SettingsModal, Sidebar } from "./components";
+import { Header, Sidebar } from "./components";
+import { Filter, Settings } from "@components/modals";
 import "./styles/App.css";
 import "./styles/Mui.css";
 
@@ -42,13 +43,13 @@ function App() {
         setSelectedCountry={handleSelect}
         setFilterActive={setIsFilterActive}
       />
-      <FilterModal
+      <Filter
         isActive={isFilterActive}
         setActive={setIsFilterActive}
         filterOptions={filterOptions}
         setFilterOptions={setFilterOptions}
       />
-      <SettingsModal isActive={isSettingsActive} setActive={setIsSettingsActive} />
+      <Settings isActive={isSettingsActive} setActive={setIsSettingsActive} />
       <Outlet />
     </HelmetProvider>
   );

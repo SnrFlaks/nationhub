@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "@components/UI";
 import { FilterOptions } from "@api/CountryService";
 import useRange from "@hooks/useRange";
-import { Checkbox } from "@mui/material";
+import Checkbox from "./Options/Checkbox/Checkbox";
 import Range from "./Options/Range/Range";
-import styles from "./FilterModal.module.css";
+import styles from "./Filter.module.css";
 
-interface FilterModalProps {
+interface FilterProps {
   isActive: boolean;
   setActive: (active: boolean) => void;
   filterOptions: FilterOptions;
   setFilterOptions: (options: FilterOptions) => void;
 }
 
-const FilterModal: React.FC<FilterModalProps> = ({
+const Filter: React.FC<FilterProps> = ({
   isActive,
   setActive,
   filterOptions,
@@ -46,32 +46,18 @@ const FilterModal: React.FC<FilterModalProps> = ({
     <Modal isActive={isActive} setActive={setActive} title="Filter Options">
       <div className={styles.filterContent}>
         <div className={styles.checkboxContainer}>
-          <label className={styles.checkboxOption}>
-            <Checkbox
-              checked={localFilterOptions.independent}
-              onChange={(e) => {
-                setLocalFilterOptions({
-                  ...localFilterOptions,
-                  independent: e.target.checked,
-                });
-              }}
-              aria-labelledby="independent-label"
-            />
-            <span id="independent-label">Independent</span>
-          </label>
-          <label className={styles.checkboxOption}>
-            <Checkbox
-              checked={localFilterOptions.unMember}
-              onChange={(e) => {
-                setLocalFilterOptions({
-                  ...localFilterOptions,
-                  unMember: e.target.checked,
-                });
-              }}
-              aria-labelledby="un-member-label"
-            />
-            <span id="un-member-label">UN Member</span>
-          </label>
+          <Checkbox
+            filterOptions={localFilterOptions}
+            setFilterOptions={setLocalFilterOptions}
+            filterKey="independent"
+            label="Independent"
+          />
+          <Checkbox
+            filterOptions={localFilterOptions}
+            setFilterOptions={setLocalFilterOptions}
+            filterKey="unMember"
+            label="UN Member"
+          />
         </div>
         <div className={styles.rangeContainer}>
           <Range
@@ -113,4 +99,4 @@ const FilterModal: React.FC<FilterModalProps> = ({
   );
 };
 
-export default FilterModal;
+export default Filter;

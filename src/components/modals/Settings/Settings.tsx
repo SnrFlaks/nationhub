@@ -1,13 +1,13 @@
 import { Button, Modal } from "@components/UI";
-import styles from "./SettingsModal.module.css";
+import styles from "./Settings.module.css";
 import { Icon } from "@mui/material";
 
-interface SettingsModalProps {
+interface SettingsProps {
   isActive: boolean;
   setActive: (value: boolean) => void;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ isActive, setActive }) => {
+const Settings: React.FC<SettingsProps> = ({ isActive, setActive }) => {
   const handleClearData = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -33,4 +33,4 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isActive, setActive }) =>
   );
 };
 
-export default SettingsModal;
+export default Settings;
