@@ -75,7 +75,11 @@ const Search: React.FC<SearchProps> = ({ isSearchMode }) => {
         />
         <Button
           icon="close"
-          className={styles.closeIcon}
+          className={mergeClasses(
+            styles.closeIcon,
+            !(searchQuery.length > 0),
+            styles.hidden
+          )}
           aria-label="Clear search input"
           onClick={() => setSearchQuery("")}
         />

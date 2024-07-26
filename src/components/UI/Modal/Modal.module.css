@@ -11,6 +11,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s, visibility 0.2s;
+  z-index: 1000;
 }
 .modalContainer.active {
   opacity: 1;
@@ -33,6 +34,23 @@
   opacity: 1;
 }
 
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.modalTitle {
+  font-size: 1.3em;
+  padding-left: 8px;
+  margin: 0;
+}
+
+.closeBtn {
+  justify-content: right;
+}
+
 @media (max-width: 640px) {
   .modalContent {
     border-radius: 0;
@@ -41,5 +59,9 @@
     height: 100vh;
     width: 100vw;
     padding: 0 16px;
+  }
+
+  .modalTitle {
+    font-size: 1.7em;
   }
 }

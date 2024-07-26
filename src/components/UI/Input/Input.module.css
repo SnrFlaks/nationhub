@@ -7,10 +7,10 @@
   color: var(--text-primary);
   background: var(--bkg-secondary);
   box-sizing: border-box;
+  transition: border-color 0.25s;
 }
 .input:hover {
   border-color: var(--green);
-  transition: border-color 0.25s;
 }
 .input:focus {
   border-color: transparent;

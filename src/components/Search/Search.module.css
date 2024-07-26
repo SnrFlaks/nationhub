@@ -37,7 +37,7 @@
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .resultsList {
@@ -60,10 +60,20 @@
   .inputContainer {
     display: none;
   }
+
+  .input {
+    font-size: 1.2em;
+  }
+
   .closeIcon {
     position: relative;
   }
+
   .closeIcon * {
     color: var(--text-primary);
+  }
+
+  .resultItem {
+    font-size: 1.1em;
   }
 }

@@ -43,16 +43,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
   };
 
   return (
-    <Modal isActive={isActive} setActive={setActive} aria-labelledby={styles.title}>
-      <div className={styles.filterHeader}>
-        <h3 className={styles.title}>Filter Options</h3>
-        <Button
-          icon="close"
-          className={styles.closeBtn}
-          aria-label="Close filter options"
-          onClick={() => setActive(false)}
-        />
-      </div>
+    <Modal isActive={isActive} setActive={setActive} title="Filter Options">
       <div className={styles.filterContent}>
         <div className={styles.checkboxContainer}>
           <label className={styles.checkboxOption}>

@@ -7,9 +7,10 @@ import styles from "./Header.module.css";
 
 interface HeaderProps {
   setSidebarActive: (active: boolean) => void;
+  setSettingsActive: (active: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
+const Header: React.FC<HeaderProps> = ({ setSidebarActive, setSettingsActive }) => {
   const [isDarkMode, toggleTheme] = useTheme();
   const [isSearchMode, setSearchMode] = useState(false);
 
@@ -62,7 +63,11 @@ const Header: React.FC<HeaderProps> = ({ setSidebarActive }) => {
           aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           onClick={toggleTheme}
         />
-        <Button icon="settings" aria-label="Settings" />
+        <Button
+          icon="settings"
+          aria-label="Settings"
+          onClick={() => setSettingsActive(true)}
+        />
       </div>
     </header>
   );
