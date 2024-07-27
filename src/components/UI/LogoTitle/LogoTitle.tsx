@@ -6,6 +6,7 @@ const LogoTitle = () => {
 
   const handleClick = () => {
     navigate("/");
+    window.scroll(0, 0);
   };
 
   return <h1 className={styles.logoTitle} onClick={handleClick} />;

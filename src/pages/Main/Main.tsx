@@ -11,6 +11,7 @@ const Main = () => {
   const [randomCountry, setRandomCountry] = useState<Country>();
   const [sortOption, setSortOption] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [isVisible, setIsVisible] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,10 +47,15 @@ const Main = () => {
 
   const handleCountryClick = (cca2: string) => {
     navigate(`/${cca2.toLowerCase()}`);
+    window.scroll(0, 0);
   };
 
   const handleRepeatClick = () => {
-    setRandomCountry(getRandomCountry(countries));
+    setIsVisible(false);
+    setTimeout(() => {
+      setRandomCountry(getRandomCountry(countries));
+      setIsVisible(true);
+    }, 150);
   };
 
   const getRandomCountry = (countries: Country[]): Country => {
@@ -81,7 +87,13 @@ const Main = () => {
             <tbody>
               <tr>
                 <td>
-                  <div className={styles.randomCountryContainer}>
+                  <div
+                    className={mergeClasses(
+                      styles.randomCountryContainer,
+                      !isVisible,
+                      styles.hidden
+                    )}
+                  >
                     <div className={styles.randomCountryName}>
                       <img
                         src={`data:image/svg+xml,${encodeURIComponent(

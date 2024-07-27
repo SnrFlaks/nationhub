@@ -1,20 +1,17 @@
 .input {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border-width: 1px;
+  border-style: solid;
   border-color: var(--border-primary);
   padding: 0.6em;
   color: var(--text-primary);
   background: var(--bkg-secondary);
+  outline: none;
   box-sizing: border-box;
-  transition: border-color 0.25s;
-}
-.input:hover {
-  border-color: var(--green);
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 .input:focus {
-  border-color: transparent;
-  outline-color: var(--border-primary);
-  outline-style: solid;
-  outline-width: 2px;
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--green), transparent 75%);
 }

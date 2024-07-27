@@ -1,5 +1,6 @@
 .mainContainer {
   padding: 72px 20vw;
+  min-height: 100vh;
 }
 
 .titleContainer {
@@ -40,6 +41,13 @@
 .randomCountryContainer {
   display: flex;
   flex-direction: column;
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+  transform: scale(1);
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.97);
 }
 
 .repeatBtn {
@@ -130,7 +138,7 @@ h2 {
 
 @media (max-width: 640px) {
   .mainContainer {
-    padding: 56px 16px 0;
+    padding: 56px 16px;
   }
   .title {
     font-size: 2em;

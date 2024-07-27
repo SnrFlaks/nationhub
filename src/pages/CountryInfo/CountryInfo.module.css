@@ -1,5 +1,6 @@
 .contentContainer {
   padding: 72px 20vw 0;
+  min-height: 100vh;
 }
 
 .countryHeader {

@@ -34,7 +34,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           checked={
             typeof filterOptions[filterKey] === "boolean"
               ? filterOptions[filterKey]
-              : false   
+              : false
           }
           onChange={handleChange}
           aria-labelledby={`${filterKey}-label`}

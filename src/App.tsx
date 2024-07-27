@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { FilterOptions } from "@api/CountryService";
-import { Header, Sidebar } from "./components";
+import { Footer, Header, Sidebar } from "./components";
 import { Filter, Settings } from "@components/modals";
 import "./styles/App.css";
 import "./styles/Mui.css";
@@ -20,6 +20,7 @@ function App() {
 
   const handleSelect = (countryCode: string) => {
     navigate(`/${countryCode.toLowerCase()}`);
+    window.scroll(0, 0);
   };
 
   return (
@@ -51,6 +52,7 @@ function App() {
       />
       <Settings isActive={isSettingsActive} setActive={setIsSettingsActive} />
       <Outlet />
+      <Footer />
     </HelmetProvider>
   );
 }
