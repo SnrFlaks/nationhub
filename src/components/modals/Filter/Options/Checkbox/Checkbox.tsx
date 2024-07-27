@@ -31,11 +31,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
     <div className={styles.checkboxOption}>
       <label className={styles.checkboxLabel}>
         <MuiCheckbox
-          checked={
-            typeof filterOptions[filterKey] === "boolean"
-              ? filterOptions[filterKey]
-              : false
-          }
+          checked={(filterOptions[filterKey] as boolean) || false}
           onChange={handleChange}
           aria-labelledby={`${filterKey}-label`}
         />
